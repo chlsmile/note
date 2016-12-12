@@ -1,0 +1,3 @@
+## servlet实例数量
+- 默认的servlet容器可以为每个虚拟机(JVM)的每个Servlet声明产生一个实例,但是，如果在分布式环境中servlet实现了SingleThreadModel 接口，此时容器可以为每个容器的JVM实例化多个Servlet实例。
+- SingleThreadModel 接口的作用是保证一个特定servlet实例的service方法在一个时刻仅能被一个线程执行
