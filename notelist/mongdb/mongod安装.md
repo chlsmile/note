@@ -46,8 +46,6 @@ Before running mongod for the first time, ensure that the user account running m
 
 ##### 3.Run MongoDB
 
-Run MongoDB.
-
 To run MongoDB, run the mongod process at the system prompt. If necessary, specify the path of the mongod or the data directory. See the following examples
 
 **Run without specifying paths**
