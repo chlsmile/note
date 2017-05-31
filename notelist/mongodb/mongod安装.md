@@ -22,7 +22,7 @@ tar -zxvf mongodb-linux-x86_64-3.0.4.tgz
 
 The MongoDB binaries are in the bin/ directory of the archive. To ensure that the binaries are in your PATH, you can modify your PATH.
 
-For example, you can add the following line to your shell’s rc file (e.g. ~/.bashrc):
+For example, you can add the following line to your shell’s rc file (e.g. \~/.bashrc):
 
 ```
 export PATH=<mongodb-install-directory>/bin:$PATH
@@ -71,4 +71,3 @@ If you do not use the default data directory (i.e., /data/db), specify the path 
 ```
 mongod --dbpath <path to data directory>
 ```
-
