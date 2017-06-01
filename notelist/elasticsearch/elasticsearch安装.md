@@ -24,6 +24,8 @@ cd elasticsearch-5.4.0/bin
 ./elasticsearch
 ```
 
-如果你想把 Elasticsearch 作为一个守护进程在后台运行，那么可以在后面添加参数 -d 
+- 如果你想把 Elasticsearch 作为一个守护进程在后台运行，那么可以在后面添加参数 -d 
+- 测试 Elasticsearch 是否启动成功，可以打开另一个终端，执行以下操作：curl 'http://localhost:9200/?pretty'
+
 
 
