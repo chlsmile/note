@@ -3,4 +3,4 @@
 - 什么时候用？
 - 现在有哪些公司在用（ Wikipedia， Stack Overflow ， GitHub）
 - Elasticsearch特点
-
+- 安装Elasticsearch需要注意的点
