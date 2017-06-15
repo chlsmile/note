@@ -36,10 +36,22 @@ cnpm install
 cnpm run start
 ```
 
+### 访问elasticsearch-head插件服务
+elasticsearch-head服务默认监听9100端口，访问url为http://localhost:9100/
 
+### 修改elasticsearch的http配置参数
+当elasticsearch-head服务启动后，默认elasticsearch-head服务会通过9200端口连接elasticsearch服务，需要修改elasticsearch服务的http配置
+
+```
+修改elasticsearch.yml文件的http配置参数,增加如下内容
+# http settings
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+```
 
 #### 参考相关文档链接
 - [elasticsearch-head](<https://github.com/mobz/elasticsearch-head>)
+- [elasticsearch的http模块说明文档](<https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-http.html>)
 - [淘宝npm镜像](<https://npm.taobao.org/>)
 - [cnpm](<https://github.com/cnpm/cnpm>)
 - [node](<https://nodejs.org/en/>)

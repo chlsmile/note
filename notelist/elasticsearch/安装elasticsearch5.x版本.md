@@ -1,14 +1,14 @@
 ## 安装elasticsearch5.X版本
-###简介
+### 简介
 > 安装elasticsearch5.X版本后需要使用非root用户启动，同时需要修改一些服务器配置参数，否则启动会失败
 
-###安装
+### 安装
 ```
 curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.1.tar.gz
 
 tar -xvf elasticsearch-5.4.1.tar.gz
 ```
-###修改jvm heap基础配置信息
+### 修改jvm heap基础配置信息
 elasticsearch5.X版本默认的-Xms与-Xms值得大小均为2GB,可以根据实际机器状况调整这两个参数，由于采用虚拟机测试配置较低，所以修改这两个值均为1GB
 
 ```
@@ -30,7 +30,7 @@ elasticsearch5.X版本默认的-Xms与-Xms值得大小均为2GB,可以根据实�
 
 ```
 
-###修改elasticsearch.yml基础配置信息
+### 修改elasticsearch.yml基础配置信息
 ```
 1.修改集群名
 #cluster.name: my-application
@@ -48,10 +48,13 @@ path.data: /home/esdev/elasticsearch-5.4.1/data
 #path.logs: /path/to/logs
 path.logs: /home/esdev/elasticsearch-5.4.1/logs
 
+5.修改网络地址
+#network.host: 192.168.0.1
+network.host: 192.168.56.101
 
 ```
 
-###启动elasticsearch(以守护进行的方式启动)
+### 启动elasticsearch(以守护进行的方式启动)
 出于安全考虑，elasticsearch5.X版本，要求以非root用户启动
 
 - 启动方式1: 普通启动
@@ -66,7 +69,7 @@ path.logs: /home/esdev/elasticsearch-5.4.1/logs
 ./elasticsearch -d
 ```
 
-###启动报错与解决方案
+### 启动报错与解决方案
 - 启动时可能会出现如下错误
 
 ```
