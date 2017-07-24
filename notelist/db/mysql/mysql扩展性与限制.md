@@ -1,0 +1,3 @@
+## mysql扩展性与限制
+- Support for large databases. We use MySQL Server with databases that contain 50 million records. We also know of users who use MySQL Server with 200,000 tables and about 5,000,000,000 rows.
+- Support for up to 64 indexes per table. Each index may consist of 1 to 16 columns or parts of columns. The maximum index width for InnoDB tables is either 767 bytes or 3072 bytes. See Section 14.8.1.7, “Limits on InnoDB Tables”. The maximum index width for MyISAM tables is 1000 bytes. See Section 15.2, “The MyISAM Storage Engine”. An index may use a prefix of a column for CHAR, VARCHAR, BLOB, or TEXT column types.
