@@ -1,4 +1,4 @@
-## mysql show 常用语法
+## mysql show syntax
 
 
 ```sql
@@ -48,8 +48,7 @@ like_or_where:
 ```
 
 
-
-https://dev.mysql.com/doc/refman/5.7/en/show.html
+链接(https://dev.mysql.com/doc/refman/5.7/en/show.html)
 
 
 
