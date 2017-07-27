@@ -5,9 +5,8 @@ show binary logs
 show master logs
 ```
 
-
 ```sql
- mysql> SHOW BINARY LOGS;
+ mysql> show binary logs;
  +---------------+-----------+
  | Log_name      | File_size |
  +---------------+-----------+
