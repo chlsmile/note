@@ -2,14 +2,7 @@
 
 #### 系统环境与版本
 
-- 操作系统版本(虚拟机)
-```
-[root@redhat2 ~]# cat /etc/redhat-release
-Red Hat Enterprise Linux Server release 7.3 (Maipo)
-```
+- 操作系统版本(虚拟机) : Red Hat Enterprise Linux Server release 7.3 (Maipo)
+- jdk版本(64位) : java version "1.8.0_131"
+- elasticsearch版本 : elasticsearch-5.6.1
 
-- jdk版本
-![pic2](https://github.com/chlsmile/note/blob/master/notefile/jdk-version.png)
-
-- elasticsearch版本
-![pic3](https://github.com/chlsmile/note/blob/master/notefile/es-version.png)
