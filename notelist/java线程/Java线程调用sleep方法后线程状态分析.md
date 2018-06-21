@@ -25,4 +25,4 @@ public class ThreadSleepTest {
 ```
 
 #### 代码运行线程状态分析
-![pic1](https://github.com/chlsmile/note/blob/master/notefile/thread/threadsleep.png)
+![pic](https://github.com/chlsmile/note/blob/master/notefile/thread/threadsleep.png)
