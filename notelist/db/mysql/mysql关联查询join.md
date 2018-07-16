@@ -17,5 +17,5 @@ WHERE   <where_condition>
 
 #### TODO 执行顺序
 #### TODO 不通类型的join图形表示
-#### TODO mysql支持的几种join查询(mysql不支持full join， 但可以通过left join unio left join来变相实现)
+#### TODO mysql支持的几种join查询(mysql不支持full join， 但可以通过left join union left join来变相实现)
 #### TODO 索引情况分析
