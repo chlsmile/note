@@ -46,8 +46,25 @@ insert into t_order(o_id,order_no,p_id) VALUES
 
 ```
 
-#### left join查询
 
+#### inner join查询
+```sql
+SELECT p.last_name, p.first_name, o.order_no
+FROM t_person p
+INNER JOIN t_order o
+ON p.p_id = o.p_id
+
++-----------+------------+----------+
+| last_name | first_name | order_no |
++-----------+------------+----------+
+| Carter    | Thomas     | 77895    |
+| Carter    | Thomas     | 44678    |
+| Adams     | John       | 22456    |
+| Adams     | John       | 24562    |
++-----------+------------+----------+
+```
+
+#### left join查询
 ```sql
 
 select p.last_name, p.first_name, o.order_no
@@ -68,7 +85,6 @@ on p.p_id=o.p_id
 ```
 
 #### right join查询
-
 ```sql
 
 
@@ -77,6 +93,40 @@ from t_person p
 right join t_order o
 on p.p_id=o.p_id
 
++-----------+------------+----------+
+| last_name | first_name | order_no |
++-----------+------------+----------+
+| Adams     | John       | 22456    |
+| Adams     | John       | 24562    |
+| Carter    | Thomas     | 77895    |
+| Carter    | Thomas     | 44678    |
+| NULL      | NULL       | 34764    |
++-----------+------------+----------+
+
+
+```
+
+#### union左连接与右连接
+- MySQL不支持全外连接(FULL JOIN)，所以可以采取关键字UNION来联合左,右。替代方法 left join + union(可去除重复数据)+ right join
+```sql
+SELECT p.last_name, p.first_name, o.order_no
+FROM t_person p
+	LEFT JOIN t_order o ON p.p_id = o.p_id
+UNION
+SELECT p.last_name, p.first_name, o.order_no
+FROM t_person p
+	RIGHT JOIN t_order o ON p.p_id = o.p_id	
+
++-----------+------------+----------+
+| last_name | first_name | order_no |
++-----------+------------+----------+
+| Carter    | Thomas     | 77895    |
+| Carter    | Thomas     | 44678    |
+| Adams     | John       | 22456    |
+| Adams     | John       | 24562    |
+| Bush      | George     | NULL     |
+| NULL      | NULL       | 34764    |
++-----------+------------+----------+	
 
 ```
 
