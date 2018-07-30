@@ -1,7 +1,7 @@
 ## mysql关联查询join
 
 
-#### join查询的通用结构
+#### 一、join查询的通用结构
 ```mysql
 SELECT <row_list>
 FROM <left_table>    
@@ -10,11 +10,11 @@ ON <join condition>
 WHERE   <where_condition>
 ```
 
-#### join查询的执行顺序如下(SQL语句里第一个被执行的总是FROM子句)：
+#### 二、join查询的执行顺序如下(SQL语句里第一个被执行的总是FROM子句)：
 - FROM:对左右两张表执行笛卡尔积，产生第一张表vt1。行数为n*m（n为左表的行数，m为右表的行数)
 - ON:根据ON的条件逐行筛选vt1，将结果插入vt2中
 
-#### 测试数据
+#### 三、测试数据
 
 ```sql
 CREATE table t_person(
@@ -46,7 +46,7 @@ insert into t_order(o_id,order_no,p_id) VALUES
 ```
 
 
-#### inner join查询
+#### 四、inner join查询
 ```sql
 SELECT p.last_name, p.first_name, o.order_no
 FROM t_person p
@@ -63,7 +63,7 @@ ON p.p_id = o.p_id
 +-----------+------------+----------+
 ```
 
-#### left join查询
+#### 五、left join查询
 ```sql
 
 select p.last_name, p.first_name, o.order_no
@@ -83,7 +83,7 @@ on p.p_id=o.p_id
 
 ```
 
-#### right join查询
+#### 六、right join查询
 ```sql
 
 
