@@ -129,6 +129,38 @@ FROM t_person p
 
 ```
 
+#### cross join
+- 交叉连接，得到的结果是两个表的乘积，即笛卡尔积.
+- 在mysql cross join 与inner join 的表现是一样的，在不指定 on 条件得到的结果都是笛卡尔积，反之取得两个表完全匹配的结果。
+inner join 与 cross join 可以省略 inner 或 cross 关键字
+```sql
+select p.last_name, p.first_name, o.order_no
+from t_person p
+cross join t_order o
+order by p.last_name
+
++-----------+------------+----------+
+| last_name | first_name | order_no |
++-----------+------------+----------+
+| Adams     | John       | 77895    |
+| Adams     | John       | 24562    |
+| Adams     | John       | 44678    |
+| Adams     | John       | 34764    |
+| Adams     | John       | 22456    |
+| Bush      | George     | 44678    |
+| Bush      | George     | 34764    |
+| Bush      | George     | 22456    |
+| Bush      | George     | 77895    |
+| Bush      | George     | 24562    |
+| Carter    | Thomas     | 44678    |
+| Carter    | Thomas     | 34764    |
+| Carter    | Thomas     | 22456    |
+| Carter    | Thomas     | 77895    |
+| Carter    | Thomas     | 24562    |
++-----------+------------+----------+
+
+```
+
 
 #### TODO 执行顺序
 #### TODO 不通类型的join图形表示
