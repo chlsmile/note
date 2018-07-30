@@ -15,7 +15,8 @@ WHERE   <where_condition>
 - ON:根据ON的条件逐行筛选vt1，将结果插入vt2中
 
 
-#### 举例
+#### 测试数据
+
 ```sql
 CREATE table t_person(
 	p_id int(10) UNSIGNED not NULL  comment '用户id',
@@ -43,6 +44,11 @@ insert into t_order(o_id,order_no,p_id) VALUES
 (4,'24562',1),
 (5,'34764',65)
 
+```
+
+#### left join查询
+
+```sql
 
 select p.last_name, p.first_name, o.order_no
 from t_person p
@@ -58,6 +64,20 @@ on p.p_id=o.p_id
 | Adams     | John       | 24562    |
 | Bush      | George     | NULL     |
 +-----------+------------+----------+
+
+```
+
+#### right join查询
+
+```sql
+
+
+select p.last_name, p.first_name, o.order_no
+from t_person p
+right join t_order o
+on p.p_id=o.p_id
+
+
 ```
 
 
