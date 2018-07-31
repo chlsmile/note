@@ -1,7 +1,6 @@
 ## mysql关联查询join
 
-
-#### 一、join查询的通用结构
+### join查询语法格式
 ```mysql
 SELECT <row_list>
 FROM <left_table>    
@@ -10,11 +9,20 @@ ON <join condition>
 WHERE   <where_condition>
 ```
 
-#### 二、join查询的执行顺序如下(SQL语句里第一个被执行的总是FROM子句)：
+### mysql支持的join类型
+- inner join(内连接)
+- cross join(交叉连接，得到的结果是两个表的乘积，即笛卡尔积)
+- left join(左外连接)
+- right join(右外连接)
+- mysql不支持full join(全连接), 可以通过left join + union(可去除重复数据)+ right join来实现
+
+
+
+### join查询的执行顺序如下(SQL语句里第一个被执行的总是FROM子句)：
 - FROM:对左右两张表执行笛卡尔积，产生第一张表vt1。行数为n*m（n为左表的行数，m为右表的行数)
 - ON:根据ON的条件逐行筛选vt1，将结果插入vt2中
 
-#### 三、测试数据
+### 三、测试数据
 
 ```sql
 CREATE table t_person(
@@ -46,7 +54,7 @@ insert into t_order(o_id,order_no,p_id) VALUES
 ```
 
 
-#### 四、inner join查询
+### 四、inner join查询
 ```sql
 SELECT p.last_name, p.first_name, o.order_no
 FROM t_person p
@@ -63,7 +71,7 @@ ON p.p_id = o.p_id
 +-----------+------------+----------+
 ```
 
-#### 五、left join查询
+### 五、left join查询
 ```sql
 
 select p.last_name, p.first_name, o.order_no
@@ -83,7 +91,7 @@ on p.p_id=o.p_id
 
 ```
 
-#### 六、right join查询
+### 六、right join查询
 ```sql
 
 
@@ -105,7 +113,7 @@ on p.p_id=o.p_id
 
 ```
 
-#### union左连接与右连接
+### union左连接与右连接
 - MySQL不支持全外连接(FULL JOIN)，所以可以采取关键字UNION来联合左,右。替代方法 left join + union(可去除重复数据)+ right join
 ```sql
 SELECT p.last_name, p.first_name, o.order_no
@@ -129,7 +137,7 @@ FROM t_person p
 
 ```
 
-#### cross join
+### cross join
 - 交叉连接，得到的结果是两个表的乘积，即笛卡尔积.
 - 在mysql cross join 与inner join 的表现是一样的，在不指定 on 条件得到的结果都是笛卡尔积，反之取得两个表完全匹配的结果。
 inner join 与 cross join 可以省略 inner 或 cross 关键字
@@ -160,9 +168,5 @@ order by p.last_name
 +-----------+------------+----------+
 
 ```
-
-
-#### TODO 执行顺序
-#### TODO 不通类型的join图形表示
-#### TODO mysql支持的几种join查询(mysql不支持full join， 但可以通过left join union left join来变相实现)
-#### TODO 索引情况分析
+### TODO 执行顺序s
+### TODO join查询索引情况分析
