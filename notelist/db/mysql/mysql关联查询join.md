@@ -5,17 +5,15 @@
 SELECT <row_list>
 FROM <left_table>    
 <inner|left|right> JOIN <right_table> 
-ON <join condition>
+ON <join condition> | USING(column_list)
 WHERE   <where_condition>
 ```
 
 ### mysql支持的join类型
-- inner join(内连接)
-- cross join(交叉连接，得到的结果是两个表的乘积，即笛卡尔积)
+- inner join(内连接, 在mysql中join, cross join, inner join是完全等价的)
 - left join(左外连接)
 - right join(右外连接)
 - mysql不支持full join(全连接), 可以通过left join + union(可去除重复数据)+ right join来实现
-
 
 
 ### join查询的执行顺序如下(SQL语句里第一个被执行的总是FROM子句)：
