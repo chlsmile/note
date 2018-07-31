@@ -20,7 +20,7 @@ WHERE   <where_condition>
 - FROM:对左右两张表执行笛卡尔积，产生第一张表vt1。行数为n*m（n为左表的行数，m为右表的行数)
 - ON:根据ON的条件逐行筛选vt1，将结果插入vt2中
 
-### 三、测试数据
+### 测试数据
 
 ```sql
 CREATE table t_person(
@@ -52,7 +52,7 @@ insert into t_order(o_id,order_no,p_id) VALUES
 ```
 
 
-### 四、inner join查询
+### inner join查询
 ```sql
 SELECT p.last_name, p.first_name, o.order_no
 FROM t_person p
@@ -69,7 +69,7 @@ ON p.p_id = o.p_id
 +-----------+------------+----------+
 ```
 
-### 五、left join查询
+### left join查询
 ```sql
 
 select p.last_name, p.first_name, o.order_no
@@ -89,7 +89,7 @@ on p.p_id=o.p_id
 
 ```
 
-### 六、right join查询
+### right join查询
 ```sql
 
 
@@ -166,5 +166,5 @@ order by p.last_name
 +-----------+------------+----------+
 
 ```
-### TODO 执行顺序s
+### TODO 执行顺序
 ### TODO join查询索引情况分析
