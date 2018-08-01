@@ -27,3 +27,15 @@ algorithm_option:
 lock_option:
     LOCK [=] {DEFAULT | NONE | SHARED | EXCLUSIVE}
 ```
+
+
+
+#### 查看索引
+```sql
+show index from 'table_name'
+```
+
+#### 删除索引
+```sql
+alter table 'talbe_name' drop index 'index_name'
+```
