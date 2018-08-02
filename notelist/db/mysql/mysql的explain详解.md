@@ -1,6 +1,8 @@
-## explain详解
+## explain详解 //TODO 还没整理完
+### mysql版本
+- 5.7.19-log MySQL Community Server (GPL)
 
-#### explain 输出列详解
+### explain 输出列详解
 列      | 含义
 ----------| -------------
 id            | 查询标识
@@ -17,32 +19,94 @@ filtered      | //TODO
 Extra         | 一些额外信息
 
 
-#### 测试数据
+### 测试数据
 - 建一些测试表与数据(https://github.com/datacharmer/test_db), 选择employees.sql导入
 
 
-#### id
+### id
 
-#### select_type
+### select_type
+查询类型     | 含义
+----------| -------------
+simple |  简单的查询不包含union查询和子查询
+primary|  最外层的查询
+union | 
+dependent union| 
+union result| 
+subquery| 
+dependent subquery| 
+derived|
+materialized|
+uncacheable subquery|
+uncacheable union| 
 
-#### table
+#### select_type simple
 
-#### partitions
+#### select_type primary
 
-#### type
+#### select_type union
 
-#### possible_keys
 
-#### key
+#### select_type dependent union
 
-#### key_len
+#### select_type union result
+- union result表示union查询的结果
+- 示例
+```sql
+explain 
+	select * from employees
+union 
+	select * from employees 
+union 
+	select * from employees;
+```
+- 运行结果
+mysql-explain-select-type-union-result.png
 
-#### ref
 
-#### rows
+#### select_type subquery
 
-#### filtered
+#### select_type dependent subquery
 
-#### Extra
+#### select_type derived 
+- derived 表示派生表
+
+#### select_type materialized 
+
+#### select_type uncacheable subquery
+
+#### select_type uncacheable union
+
+
+### table
+
+- 示例
+```sql
+explain 
+    select * from employees 
+ union 
+    select * from employees t2
+```
+- 运行结果
+mysql-explain-table.png
+
+### partitions
+
+### type
+- 连接类型，比较重要的性能指标，性能从好到差顺序依次为system->const->eq_ref->ref->fulltext->ref_or_null->ref_or_null->unique_subquery->index_subquery->range->index->ALL
+
+### possible_keys
+
+### key
+
+### key_len
+
+### ref
+
+### rows
+
+### filtered
+
+### Extra
 
 
