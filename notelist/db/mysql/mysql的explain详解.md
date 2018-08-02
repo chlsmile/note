@@ -18,7 +18,7 @@ Extra         | 一些额外信息
 
 
 #### 测试数据
-- 建一些测试表与数据(https://github.com/datacharmer/test_db)
+- 建一些测试表与数据(https://github.com/datacharmer/test_db), 选择employees.sql导入
 
 
 
