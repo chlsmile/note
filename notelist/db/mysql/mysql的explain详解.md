@@ -93,7 +93,7 @@ mysql-explain-table.png
 ### partitions
 
 ### type
-- 连接类型，比较重要的性能指标，性能从好到差顺序依次为`system`>const`>`eq_ref->ref->fulltext->ref_or_null->ref_or_null->unique_subquery->index_subquery->range->index->ALL
+- 连接类型，比较重要的性能指标，性能从好到差顺序依次为`system`>`const`>`eq_ref`>`ref`>`fulltext`>`ref_or_null`>`ref_or_null`>`unique_subquery`>`index_subquery`>`range`>`index`>`ALL`
 
 ### possible_keys
 
