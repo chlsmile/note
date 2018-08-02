@@ -21,7 +21,28 @@ Extra         | 一些额外信息
 - 建一些测试表与数据(https://github.com/datacharmer/test_db), 选择employees.sql导入
 
 
+#### id
 
+#### select_type
 
+#### table
+
+#### partitions
+
+#### type
+
+#### possible_keys
+
+#### key
+
+#### key_len
+
+#### ref
+
+#### rows
+
+#### filtered
+
+#### Extra
 
 
