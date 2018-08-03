@@ -9,14 +9,14 @@ id            | 查询标识
 select_type   | 查询类型
 table         | 表名
 partitions    | 分区
-type          | 连接类型
+type          | 本次查询表联接类型，从这里可以看到本次查询大致的效率
 possible_keys | 可能选择的索引
-key           | 实际使用的索引
-key_len       | 查询使用的索引的字节数
+key           | 本次查询实际使用的索引
+key_len       | 本次查询用于结果过滤的索引实际长度(字节数)
 ref           | //TODO
-rows          | 查询需要扫描的行数, 在innodb引擎的表里这个值是一个预估值，可能不是精准的
+rows          | 本次查询预计扫码的记录数, 在innodb引擎的表里这个值是一个预估值，可能不是精准的
 filtered      | //TODO
-Extra         | 一些额外信息
+Extra         | 额外附加信息
 
 
 ### 测试数据
@@ -93,8 +93,23 @@ mysql-explain-table.png
 ### partitions
 
 ### type
-- 连接类型，比较重要的性能指标
-- 性能从好到差顺序依次为`system`>`const`>`eq_ref`>`ref`>`fulltext`>`ref_or_null`>`ref_or_null`>`unique_subquery`>`index_subquery`>`range`>`index`>`ALL`
+- 本次查询表联接类型，从这里可以看到本次查询大致的效率，比较重要的性能指标
+- 性能从好到差顺序依次为`system`>`const`>`eq_ref`>`ref`>`fulltext`>`ref_or_null`>`index_merge`>`unique_subquery`>`index_subquery`>`range`>`index`>`ALL`
+- type类型与含义
+类型     | 含义
+----------| -------------
+system |  查询对象表只有一行数据，这是最好的情况
+const | 基于主键或唯一索引唯一值查询，最多返回一条结果
+eq_ref | 表连接时基于主键或非NULL的唯一索引完成扫描
+ref | 	基于索引的等值查询，或者表间等值连接
+fulltext | 全文检索
+ref_or_null | 表连接类型是ref，但进行扫描的索引列中可能包含NULL值
+index_merge | 可以利用index merge特性用到多个索引，提高查询效率
+unique_subquery | 子查询中可以用到唯一索引
+index_subquery | 子查询中可以用到索引
+range | 利用索引进行范围查询
+index | 执行full index scan，并且可以通过索引完成结果扫描并且直接从索引中取的想要的结果数据，也就是可以避免回表
+ALL | 全表扫描	
 
 #### type system
 - The table has only one row (= system table). This is a special case of the const join type.
@@ -105,7 +120,7 @@ mysql-explain-table.png
 ```
 
 #### type const
-- 表中最多只有一行匹配的记录
+- 基于主键或唯一索引唯一值查询，最多返回一条结果
 - 举例
 ```sql
 -- 根据主键查询
@@ -129,7 +144,6 @@ explain select * from t_student where student_no=1102;
 +----+-------------+-----------+------------+-------+-----------------+-----------------+---------+-------+------+----------+--------+
 
 ```
-
 
 #### type eq_ref
 
@@ -162,5 +176,11 @@ explain select * from t_student where student_no=1102;
 ### filtered
 
 ### Extra
+
+### 参考文章
+https://dev.mysql.com/doc/refman/5.7/en/explain-output.html
+http://imysql.com/2015/11/04/mysql-faq-some-important-in-explain.shtml
+http://imysql.com/2015/10/20/mysql-faq-key-len-in-explain.shtml
+
 
 
