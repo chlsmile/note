@@ -96,6 +96,57 @@ mysql-explain-table.png
 - 连接类型，比较重要的性能指标
 - 性能从好到差顺序依次为`system`>`const`>`eq_ref`>`ref`>`fulltext`>`ref_or_null`>`ref_or_null`>`unique_subquery`>`index_subquery`>`range`>`index`>`ALL`
 
+#### type system
+- The table has only one row (= system table). This is a special case of the const join type.
+- 表中只有一条记录(系统表),是一种特殊的const类型
+- 举例
+```sql
+//TODO 目前还没有找到合适的例子
+```
+
+#### type const
+- 表中最多只有一行匹配的记录
+- 举例
+```sql
+-- 根据主键查询
+explain select * from t_student where id=1;
+
+-- 查询结果如下
++----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+--------+
+| id | select_type | table     | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra  |
++----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+--------+
+| 1  | SIMPLE      | t_student | <null>     | const | PRIMARY       | PRIMARY | 4       | const | 1    | 100.0    | <null> |
++----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+--------+
+
+-- 根据唯一索引查询
+explain select * from t_student where student_no=1102;
++----+-------------+-----------+------------+-------+-----------------+-----------------+---------+-------+------+----------+--------+
+| id | select_type | table     | partitions | type  | possible_keys   | key             | key_len | ref   | rows | filtered | Extra  |
++----+-------------+-----------+------------+-------+-----------------+-----------------+---------+-------+------+----------+--------+
+| 1  | SIMPLE      | t_student | <null>     | const | uinx_student_no | uinx_student_no | 4       | const | 1    | 100.0    | <null> |
++----+-------------+-----------+------------+-------+-----------------+-----------------+---------+-------+------+----------+--------+
+
+```
+
+
+#### type eq_ref
+
+#### type ref
+
+#### type fulltext
+
+#### type ref_or_null
+
+#### type unique_subquery
+
+#### type index_subquery
+
+#### type range
+
+#### type index
+
+#### type index
+
 ### possible_keys
 
 ### key
