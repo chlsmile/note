@@ -96,6 +96,7 @@ mysql-explain-table.png
 - 本次查询表联接类型，从这里可以看到本次查询大致的效率，比较重要的性能指标
 - 性能从好到差顺序依次为`system`>`const`>`eq_ref`>`ref`>`fulltext`>`ref_or_null`>`index_merge`>`unique_subquery`>`index_subquery`>`range`>`index`>`ALL`
 - type类型与含义
+
 类型     | 含义
 ----------| -------------
 system |  查询对象表只有一行数据，这是最好的情况
