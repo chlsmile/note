@@ -57,20 +57,14 @@ explain select * from t_student
 #### select_type primary
 ```sql
 explain 
-select 
-  * 
-from 
-  t_student 
+	select * 
+	from t_student 
 union 
-select 
-  * 
-from 
-  t_student t1 
+	select * 
+	from t_student t1 
 union 
-select 
-  * 
-from 
-  t_student t2
+	select * 
+	from t_student t2
 
 -- 运行结果
 +--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
@@ -86,20 +80,14 @@ from
 #### select_type union
 ```sql
 explain 
-select 
-  * 
-from 
-  t_student 
+	select * 
+	from t_student 
 union 
-select 
-  * 
-from 
-  t_student t1 
+	select * 
+	from t_student t1 
 union 
-select 
-  * 
-from 
-  t_student t2
+	select * 
+	from t_student t2
 
 -- 运行结果
 +--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
@@ -120,20 +108,14 @@ from
 - 示例
 ```sql
 explain 
-select 
-  * 
-from 
-  t_student 
+	select * 
+	from t_student 
 union 
-select 
-  * 
-from 
-  t_student t1 
+	select * 
+	from t_student t1 
 union 
-select 
-  * 
-from 
-  t_student t2
+	select * 
+	from t_student t2
 
 -- 运行结果
 +--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
@@ -151,19 +133,14 @@ from
 #### select_type subquery
 ```sql
 explain 
-select 
-  * 
-from 
-  t_student 
-where 
-  sid =(
-    select 
-      sid 
-    from 
-      t_student_course 
-    where 
-      id = 1
-  )
+	select * 
+	from t_student 
+	where 
+	  sid =(
+	    select sid 
+	    from t_student_course 
+	    where id = 1
+	  )
 
 -- 运行结果
 +----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+--------------------------------+
@@ -192,17 +169,13 @@ where
 - 示例
 ```sql
 explain 
-select 
-  * 
-from 
-  t_student 
+	select * 
+	from t_student 
 union 
-select 
-  * 
-from 
-  t_student t1
-```
-- 运行结果
+	select * 
+	from t_student t1
+
+--运行结果
 +--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
 | id     | select_type  | table      | partitions | type | possible_keys | key    | key_len | ref    | rows   | filtered | Extra           |
 +--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
@@ -210,6 +183,7 @@ from
 | 2      | UNION        | t1         | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
 | <null> | UNION RESULT | <union1,2> | <null>     | ALL  | <null>        | <null> | <null>  | <null> | <null> | <null>   | Using temporary |
 +--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+```
 
 ### partitions
 
