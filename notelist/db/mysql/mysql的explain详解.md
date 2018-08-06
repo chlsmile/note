@@ -314,9 +314,25 @@ explain select * from t_student where student_age>20;
 ### filtered
 
 ### Extra
-- 额外附加信息,mysql对本次查询解析的解决方案列出的一些扩展说明	
-- 一些常用的输出如下
+值     | 含义
+----------| -------------
+Using index    | 
+Using filesort  | 
+Using temporary  | 
+Using where      |
+Impossible WHERE | 对Where子句判断的结果总是false而不能选择任何数据
 
+#### Impossible WHERE
+```sql
+explain select * from t_student where 1=0
+
+-- 运行结果
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+------------------+
+| id | select_type | table  | partitions | type   | possible_keys | key    | key_len | ref    | rows   | filtered | Extra            |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+------------------+
+| 1  | SIMPLE      | <null> | <null>     | <null> | <null>        | <null> | <null>  | <null> | <null> | <null>   | Impossible WHERE |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+------------------+
+```
 
 
 #### Extra No tables used
