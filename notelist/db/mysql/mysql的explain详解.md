@@ -317,8 +317,8 @@ explain select * from t_student where student_age>20;
 值     | 含义
 ----------| -------------
 Using index    | 
-Using filesort  | 
-Using temporary  | 
+Using filesort  | 将用外部排序而不是按照索引顺序排列结果，数据较少时从内存排序，否则需要在磁盘完成排序，代价非常高，需要添加合适的索引
+Using temporary  | 需要创建一个临时表来存储结果，这通常发生在对没有索引的列进行GROUP BY时，或者ORDER BY里的列不都在索引里，需要添加合适的索引
 Using where      |
 Impossible WHERE | 对Where子句判断的结果总是false而不能选择任何数据
 
