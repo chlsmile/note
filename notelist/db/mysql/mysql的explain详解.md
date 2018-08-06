@@ -16,7 +16,7 @@ possible_keys | 可能选择的索引
 key           | 本次查询实际使用的索引
 key_len       | 本次查询用于结果过滤的索引实际长度(字节数)
 ref           | //TODO
-rows          | 本次查询预计扫码的记录数, 在innodb引擎的表里这个值是一个预估值，可能不是精准的
+rows          | 本次查询预计扫描的记录数,是一个预估值,不是精准值
 filtered      | //TODO
 Extra         | 额外附加信息
 
@@ -219,6 +219,7 @@ ALL | 全表扫描
 - 基于主键或唯一索引唯一值查询，最多返回一条结果
 - 示例
 ```sql
+
 -- 根据主键查询
 explain select * from t_student where sid=1;
 
@@ -242,8 +243,11 @@ explain select * from t_student where mobile='18612211111';
 ```
 
 #### type eq_ref
+- 表连接时基于主键或非NULL的唯一索引完成扫描
+- 示例
 
 #### type ref
+- 基于索引的等值查询，或者表间等值连接
 - 示例
 ```sql
 -- 根据普通索引查询
@@ -269,6 +273,8 @@ explain select * from t_student where student_age=20;
 #### type index_subquery
 
 #### type range
+- 利用索引进行范围查询
+- 示例
 ```sql
 -- 根据索引进行 between and查询
 explain select * from t_student where student_age between 1 and 20;
@@ -293,12 +299,13 @@ explain select * from t_student where student_age>20;
 
 
 ```
-
 #### type index
 
-#### type index
+
 
 ### possible_keys
+- 可能选择的索引
+
 
 ### key
 - 本次查询实际使用的索引
@@ -310,6 +317,7 @@ explain select * from t_student where student_age>20;
 ### ref
 
 ### rows
+- 本次查询预计扫描的记录数,是一个预估值,不是精准值
 
 ### filtered
 
@@ -324,7 +332,7 @@ Impossible WHERE | 对Where子句判断的结果总是false而不能选择任何
 
 #### Impossible WHERE
 ```sql
-explain select * from t_student where 1=0
+explain select * from t_student where 1=0;
 
 -- 运行结果
 +----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+------------------+
@@ -337,7 +345,8 @@ explain select * from t_student where 1=0
 
 #### Extra No tables used
 ```sql
-explain select 1
+explain select 1;
+
 -- 运行结果
 +----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+----------------+
 | id | select_type | table  | partitions | type   | possible_keys | key    | key_len | ref    | rows   | filtered | Extra          |
@@ -351,7 +360,8 @@ explain select 1
 - The column information is retrieved from the table using only information in the index tree without having to do an additional seek to read the actual row. This strategy can be used when the query uses only columns that are part of a single index
 ```sql
 -- 
-explain select  sid, student_age from t_student where student_age=30
+explain select  sid, student_age from t_student where student_age=30;
+
 -- 运行结果
 +----+-------------+-----------+------------+------+-----------------+-----------------+---------+-------+------+----------+-------------+
 | id | select_type | table     | partitions | type | possible_keys   | key             | key_len | ref   | rows | filtered | Extra       |
@@ -365,7 +375,7 @@ explain select  sid, student_age from t_student where student_age=30
 - 将用外部排序而不是按照索引顺序排列结果，数据较少时从内存排序，否则需要在磁盘完成排序，代价非常高，需要添加合适的索引
 ```sql
 --  在order by的字段上没有索引
-explain select sid from t_student_course order by cid
+explain select sid from t_student_course order by cid;
 
 --  在order by的字段上没有索引运行结果
 +----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+----------------+
@@ -381,7 +391,8 @@ explain select sid from t_student_course order by cid
 
 ```sql
 -- 在group by上的字段没有加索引
-explain select cid  from t_student_course group by cid
+explain select cid  from t_student_course group by cid;
+
 -- 在group by上的字段没有加索引运行结果
 +----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+---------------------------------+
 | id | select_type | table            | partitions | type | possible_keys | key    | key_len | ref    | rows | filtered | Extra                           |
