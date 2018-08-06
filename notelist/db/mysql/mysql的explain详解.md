@@ -1,4 +1,6 @@
 ## explain详解 //TODO 还没整理完
+
+
 ### mysql版本
 - 5.7.19-log MySQL Community Server (GPL)
 
@@ -41,11 +43,75 @@ uncacheable subquery|
 uncacheable union| 
 
 #### select_type simple
+```sql
+explain select * from t_student
+
+-- 运行结果
++----+-------------+-----------+------------+------+---------------+--------+---------+--------+------+----------+--------+
+| id | select_type | table     | partitions | type | possible_keys | key    | key_len | ref    | rows | filtered | Extra  |
++----+-------------+-----------+------------+------+---------------+--------+---------+--------+------+----------+--------+
+| 1  | SIMPLE      | t_student | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4    | 100.0    | <null> |
++----+-------------+-----------+------------+------+---------------+--------+---------+--------+------+----------+--------+
+```
 
 #### select_type primary
+```sql
+explain 
+select 
+  * 
+from 
+  t_student 
+union 
+select 
+  * 
+from 
+  t_student t1 
+union 
+select 
+  * 
+from 
+  t_student t2
+
+-- 运行结果
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| id     | select_type  | table        | partitions | type | possible_keys | key    | key_len | ref    | rows   | filtered | Extra           |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| 1      | PRIMARY      | t_student    | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 2      | UNION        | t1           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 3      | UNION        | t2           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| <null> | UNION RESULT | <union1,2,3> | <null>     | ALL  | <null>        | <null> | <null>  | <null> | <null> | <null>   | Using temporary |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+  
+```
 
 #### select_type union
+```sql
+explain 
+select 
+  * 
+from 
+  t_student 
+union 
+select 
+  * 
+from 
+  t_student t1 
+union 
+select 
+  * 
+from 
+  t_student t2
 
+-- 运行结果
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| id     | select_type  | table        | partitions | type | possible_keys | key    | key_len | ref    | rows   | filtered | Extra           |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| 1      | PRIMARY      | t_student    | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 2      | UNION        | t1           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 3      | UNION        | t2           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| <null> | UNION RESULT | <union1,2,3> | <null>     | ALL  | <null>        | <null> | <null>  | <null> | <null> | <null>   | Using temporary |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+  
+
+```
 
 #### select_type dependent union
 
@@ -54,17 +120,59 @@ uncacheable union|
 - 示例
 ```sql
 explain 
-	select * from employees
+select 
+  * 
+from 
+  t_student 
 union 
-	select * from employees 
+select 
+  * 
+from 
+  t_student t1 
 union 
-	select * from employees;
+select 
+  * 
+from 
+  t_student t2
+
+-- 运行结果
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| id     | select_type  | table        | partitions | type | possible_keys | key    | key_len | ref    | rows   | filtered | Extra           |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| 1      | PRIMARY      | t_student    | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 2      | UNION        | t1           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 3      | UNION        | t2           | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| <null> | UNION RESULT | <union1,2,3> | <null>     | ALL  | <null>        | <null> | <null>  | <null> | <null> | <null>   | Using temporary |
++--------+--------------+--------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+  
+
 ```
-- 运行结果
-mysql-explain-select-type-union-result.png
 
 
 #### select_type subquery
+```sql
+explain 
+select 
+  * 
+from 
+  t_student 
+where 
+  sid =(
+    select 
+      sid 
+    from 
+      t_student_course 
+    where 
+      id = 1
+  )
+
+-- 运行结果
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+--------------------------------+
+| id | select_type | table  | partitions | type   | possible_keys | key    | key_len | ref    | rows   | filtered | Extra                          |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+--------------------------------+
+| 1  | PRIMARY     | <null> | <null>     | <null> | <null>        | <null> | <null>  | <null> | <null> | <null>   | no matching row in const table |
+| 2  | SUBQUERY    | <null> | <null>     | <null> | <null>        | <null> | <null>  | <null> | <null> | <null>   | no matching row in const table |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+--------------------------------+  
+```
 
 #### select_type dependent subquery
 
@@ -72,6 +180,7 @@ mysql-explain-select-type-union-result.png
 - derived 表示派生表
 
 #### select_type materialized 
+
 
 #### select_type uncacheable subquery
 
@@ -83,12 +192,24 @@ mysql-explain-select-type-union-result.png
 - 示例
 ```sql
 explain 
-    select * from employees 
- union 
-    select * from employees t2
+select 
+  * 
+from 
+  t_student 
+union 
+select 
+  * 
+from 
+  t_student t1
 ```
 - 运行结果
-mysql-explain-table.png
++--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| id     | select_type  | table      | partitions | type | possible_keys | key    | key_len | ref    | rows   | filtered | Extra           |
++--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
+| 1      | PRIMARY      | t_student  | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| 2      | UNION        | t1         | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 4      | 100.0    | <null>          |
+| <null> | UNION RESULT | <union1,2> | <null>     | ALL  | <null>        | <null> | <null>  | <null> | <null> | <null>   | Using temporary |
++--------+--------------+------------+------------+------+---------------+--------+---------+--------+--------+----------+-----------------+
 
 ### partitions
 
@@ -206,8 +327,11 @@ explain select * from t_student where student_age>20;
 ### possible_keys
 
 ### key
+- 本次查询实际使用的索引
+
 
 ### key_len
+- 本次查询用于结果过滤的索引实际长度(字节数) 
 
 ### ref
 
@@ -216,6 +340,65 @@ explain select * from t_student where student_age>20;
 ### filtered
 
 ### Extra
+- 额外附加信息,mysql对本次查询解析的解决方案列出的一些扩展说明	
+- 一些常用的输出如下
+
+
+
+#### Extra No tables used
+```sql
+explain select 1
+-- 运行结果
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+----------------+
+| id | select_type | table  | partitions | type   | possible_keys | key    | key_len | ref    | rows   | filtered | Extra          |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+----------------+
+| 1  | SIMPLE      | <null> | <null>     | <null> | <null>        | <null> | <null>  | <null> | <null> | <null>   | No tables used |
++----+-------------+--------+------------+--------+---------------+--------+---------+--------+--------+----------+----------------+
+
+```
+
+#### Extra Using index 
+- The column information is retrieved from the table using only information in the index tree without having to do an additional seek to read the actual row. This strategy can be used when the query uses only columns that are part of a single index
+```sql
+-- 
+explain select  sid, student_age from t_student where student_age=30
+-- 运行结果
++----+-------------+-----------+------------+------+-----------------+-----------------+---------+-------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys   | key             | key_len | ref   | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+-----------------+-----------------+---------+-------+------+----------+-------------+
+| 1  | SIMPLE      | t_student | <null>     | ref  | inx_student_age | inx_student_age | 4       | const | 2    | 100.0    | Using index |
++----+-------------+-----------+------------+------+-----------------+-----------------+---------+-------+------+----------+-------------+
+```
+
+
+#### Extra Using filesort
+- 将用外部排序而不是按照索引顺序排列结果，数据较少时从内存排序，否则需要在磁盘完成排序，代价非常高，需要添加合适的索引
+```sql
+--  在order by的字段上没有索引
+explain select sid from t_student_course order by cid
+
+--  在order by的字段上没有索引运行结果
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+----------------+
+| id | select_type | table            | partitions | type | possible_keys | key    | key_len | ref    | rows | filtered | Extra          |
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+----------------+
+| 1  | SIMPLE      | t_student_course | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 1    | 100.0    | Using filesort |
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+----------------+
+
+```
+
+#### Extra Using temporary
+- 需要创建一个临时表来存储结果，这通常发生在对没有索引的列进行GROUP BY时，或者ORDER BY里的列不都在索引里，需要添加合适的索引
+
+```sql
+-- 在group by上的字段没有加索引
+explain select cid  from t_student_course group by cid
+-- 在group by上的字段没有加索引运行结果
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+---------------------------------+
+| id | select_type | table            | partitions | type | possible_keys | key    | key_len | ref    | rows | filtered | Extra                           |
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+---------------------------------+
+| 1  | SIMPLE      | t_student_course | <null>     | ALL  | <null>        | <null> | <null>  | <null> | 1    | 100.0    | Using temporary; Using filesort |
++----+-------------+------------------+------------+------+---------------+--------+---------+--------+------+----------+---------------------------------+
+```
 
 ### 参考文章
 https://dev.mysql.com/doc/refman/5.7/en/explain-output.html
