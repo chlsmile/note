@@ -44,7 +44,6 @@ def send_mail(error):
     smtp.sendmail(sender, receiver, msg.as_string())
     smtp.close()
 
-
 #读取上一次日志文件的读取位置
 def get_last_position(file):
     try:
