@@ -58,3 +58,4 @@
 - javaconceptoftheday(http://javaconceptoftheday.com/)
 - MySQL Life(http://wubx.net/)
 - spring4all(http://www.spring4all.com/)
+- Hadoop学习资源集合(https://yq.aliyun.com/articles/47860?utm_campaign=wenzhang&utm_medium=article&utm_source=QQ-qun&utm_content=m_10342)
