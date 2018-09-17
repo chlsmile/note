@@ -6,13 +6,16 @@ http://localhost:7070/kylin
 ```
 
 #### 导航页面
+![kylin_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_navigation.png)
 
 
 
 #### 创建工程入口
+![kylin_create_project_1](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_create_project_1.png)
 
 
 #### 创建工程
+![kylin_create_project_2](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_create_project_2.png)
 
 
 
