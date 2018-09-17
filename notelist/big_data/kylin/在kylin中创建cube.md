@@ -25,8 +25,10 @@ http://localhost:7070/kylin
 #### 切换到选择数据源入口
 ![kylin_choose_data_source_1](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_choose_data_source_1.png)
 
-#### 选择数据源
-> 有三种方式选择数据源，Load Hive Table， Load Hive Table From Tree， Add Streaming Table, 其中Load Hive Table， Load Hive Table From Tree方式很类似，其中Load Hive Table是通过输入库名.表明的方式加载，Load Hive Table From Tree是从hive库树结构中选择表方式加载,这里采用Load Hive Table From Tree的方式
+#### 选择数据源(有3种方式)，这里采用Load Hive Table From Tree的方式
+- Load Hive Table
+- Load Hive Table From Tree
+- Add Streaming
 
 
 
