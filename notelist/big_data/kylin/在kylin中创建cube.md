@@ -49,6 +49,24 @@ http://localhost:7070/kylin
 </br>
 </br>
 
+#### 加载完hive表元数据后可以切换到Models视图
+![kylin_models_view](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_models_view.png)
+</br>
+</br>
+
+
+#### 选择创建model
+![kylin_choose_new_model](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_choose_new_model.png)
+</br>
+</br>
+
+
+
+
+
+
+
+
 
 
 
