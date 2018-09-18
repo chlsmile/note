@@ -86,6 +86,20 @@ http://localhost:7070/kylin
 </br>
 
 
+#### 查找表基本设置
+- 关联类型可以选择左连接或者内连接
+![kylin_add_lookup_table](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_add_lookup_table.png)
+</br>
+</br>
+
+#### 查找查询条件设置
+![kylin_add_lookup_table_add_new_join_condition](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_add_lookup_table_add_new_join_condition.png)
+</br>
+</br>
+
+
+
+
 
 
 
