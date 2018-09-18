@@ -102,10 +102,18 @@ http://localhost:7070/kylin
 </br>
 </br>
 
-#### 设置dimensions，然后点击next进入到
+#### 设置dimension，然后点击next进入到设置度量页面
 ![kylin_model_designer_select_dimension_columns](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_model_designer_select_dimension_columns.png)
 </br>
 </br>
+
+#### 设置measure，然后点击next进入到分区和数据过滤条件设置页面
+![kylin_model_designer_select_measure](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_model_designer_select_measure.png)
+</br>
+</br>
+
+
+
 
 
 
