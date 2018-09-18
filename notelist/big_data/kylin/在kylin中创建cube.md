@@ -97,6 +97,17 @@ http://localhost:7070/kylin
 </br>
 </br>
 
+#### 查询条件设置完成后选择next进入到dimensions选择页面
+![kylin_model_designer_select_dimensions](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_model_designer_select_dimensions.png)
+</br>
+</br>
+
+#### 设置dimensions，然后点击next进入到
+![kylin_model_designer_select_dimension_columns](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_model_designer_select_dimension_columns.png)
+</br>
+</br>
+
+
 
 
 
