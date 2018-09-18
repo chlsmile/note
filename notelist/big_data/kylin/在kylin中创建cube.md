@@ -61,6 +61,16 @@ http://localhost:7070/kylin
 </br>
 
 
+#### 填写model名和描述信息
+- model名必须为数字，字母，下划线
+![kylin_model_designer_name_and_description](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_model_designer_name_and_description.png)
+</br>
+</br>
+
+#### 点击next进入到事实表与查找表选择页面
+- 查找表等同于维度表
+![kylin_select_fact_table_and_lookup_table](https://github.com/chlsmile/note/blob/master/notefile/kylin/kylin_select_fact_table_and_lookup_table.png)
+
 
 
 
