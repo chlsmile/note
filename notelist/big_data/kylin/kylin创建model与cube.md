@@ -45,7 +45,7 @@ Project Description可以为空
 <br/>
 
 
-## 加载数据数据源
+## 加载数据源
 > 加载数据源有三种方式，Load Hive Table Metadata， Load Hive Table Metadata From Tree， Add Streaming
 ```html
 - Load Hive Table Metadata (通过手动输入database.table的方式加载hive table metadata)
@@ -53,8 +53,19 @@ Project Description可以为空
 - Add Streaming
 ```
 
-#### 1.通过Load Hive Table Metadata From Tree方式加载数据源
-![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
+
+
+#### 1.切换到数据源加载标签页
+![kylin_data_source_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/datasource/kylin_data_source_index.png)
+
+
+#### 2.通过Load Hive Table Metadata From Tree方式加载数据源
+![kylin_load _hive_table_metadata_from_tree](https://github.com/chlsmile/note/blob/master/notefile/kylin/datasource/kylin_load _hive_table_metadata_from_tree.png)
+
+
+#### 3.数据源加载完成后可以查询到已经加载的数据信息
+![kylin_view_data_source](https://github.com/chlsmile/note/blob/master/notefile/kylin/datasource/kylin_view_data_source.png)
+
 
 
 <br/>
