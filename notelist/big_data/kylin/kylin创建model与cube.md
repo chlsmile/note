@@ -10,6 +10,7 @@
 
 ### 登录后导航页概览
 > 登录后web页面主要包含4个模块, Insight, Model, Monitor, System
+
 模块 | 用途
 ------------- | -------------
 Insight  | 查询交互页面,可以对cube创建的数据进行sql查询操作
@@ -17,7 +18,7 @@ Model    | 主要包含model与cube列表，可以对model与cube进行查看与
 Monitor  | cube构建与慢sql查询监控信息展示页面
 System   | kylin的系统参数信息,可以查询Kylin系统的参数信息和进行修改
 
-```
+
 ![kylin_web_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/navigation/kylin_web_navigation.png)
 
 ### 创建工程
