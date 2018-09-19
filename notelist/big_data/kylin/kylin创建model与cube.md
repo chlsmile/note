@@ -1,7 +1,7 @@
 ## kylin创建model与cube
 
 ## 概述
-> 通过kylin的web管理页面可以进行创建model与cube与操作，在创建model与cube前需要先创建工程(或者选择已经存在的工程)，加载数据源，对于一个已经建好的model可以建多个cube
+> 通过kylin的web管理页面可以进行创建model与cube与操作，在创建model与cube前需要先创建工程(或者选择已经存在的工程)，加载数据源，一个数据源可以建过个model，一个model可以建多个cube
 
 <br/>
 <br/>
@@ -97,6 +97,22 @@ Select Lookup Table  选择的查找表可以设置别名
 New Join Condition   查询连接条件可以是多个
 ```
 ![kylin_model_look_table_view](https://github.com/chlsmile/note/blob/master/notefile/kylin/model/model_look_table_view.png)
+
+#### 6.查找表设置样例
+![model_designer_model_lookup_table](https://github.com/chlsmile/note/blob/master/notefile/kylin/model/model_designer_model_lookup_table.png)
+
+
+#### 7.设置完查找表(可以设置多个)后可以查看查找表列表，然后点击next进入到维度设置
+![model_designer_model_lookup_table_view](https://github.com/chlsmile/note/blob/master/notefile/kylin/model/model_designer_model_lookup_table_view.png)
+
+
+#### 8.进行维度设置
+![model_designer_model_dimensions](https://github.com/chlsmile/note/blob/master/notefile/kylin/model/model_designer_model_dimensions.png)
+
+#### 9.
+
+
+
 
 
 
