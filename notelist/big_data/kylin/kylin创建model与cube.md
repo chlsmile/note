@@ -3,10 +3,16 @@
 #### 概述
 > 通过kylin的web管理页面可以进行创建model与cube与操作，在创建model与cube前需要先创建工程(或者选择已经存在的工程)，加载数据源
 
+<br/>
+<br/>
+
 #### 登录kylin管理界面
 ```html
 地址:http://localhost:7070/kylin (默认用户名密码ADMIN/KYLIN)
 ```
+
+<br/>
+<br/>
 
 #### 登录后导航页概览
 > 登录后web页面主要包含4个模块, Insight, Model, Monitor, System
@@ -18,20 +24,25 @@ Monitor   cube构建与慢sql查询监控信息展示页面
 System    kylin的系统参数信息,可以查询Kylin系统的参数信息和进行修改
 ```
 
-
 ![kylin_web_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/navigation/kylin_web_navigation.png)
+
+<br/>
+<br/>
 
 #### 创建工程
 
-- 选择创建工程
+- 1)选择创建工程
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
 
-- 填写要创建的工程参数信息
+- 2)填写要创建的工程参数信息
 ```html
 Project Name 不能为空，只能是数字，字母，下划线
 Project Description可以为空
 ```
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
+
+<br/>
+<br/>
 
 
 #### 加载数据数据源
@@ -44,6 +55,10 @@ Project Description可以为空
 
 - 通过Load Hive Table Metadata From Tree方式加载数据源
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
+
+
+<br/>
+<br/>
 
 
 
