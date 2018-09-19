@@ -5,14 +5,17 @@
 
 #### 登录kylin管理界面
 ```html
-地址:http://localhost:7070/kylin (用户名ADMIN/密码KYLIN)
+地址:http://localhost:7070/kylin (默认用户名密码ADMIN/KYLIN)
 ```
 
 ### 登录后导航页概览
-- Insight 查询交互页面
-- Model 主要包含model与cube列表
-- Monitor cube构建与慢查询监控信息
-- System Kylin的系统参数信息
+> 登录后web页面主要包含4个部分, Insight, Model, Monitor, System
+```html
+Insight 查询交互页面,可以对cube创建的数据进行sql查询操作
+Model   主要包含model与cube列表，可以对model与cube进行查看与修改
+Monitor cube构建与慢sql查询监控信息展示页面
+System Kylin的系统参数信息,可以查询Kylin系统的参数信息和进行修改
+```
 ![kylin_web_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/navigation/kylin_web_navigation.png)
 
 ### 创建工程
