@@ -1,9 +1,12 @@
 ## kylin创建model与cube
-### 概述
-> 创建model与cube前需要先创建工程，加载元数据
 
-### 登录kylin管理界面
-- 地址:http://localhost:7070/kylin (用户名ADMIN/密码KYLIN)
+#### 概述
+> 通过kylin的web管理页面可以进行创建model与cube与操作，在创建model与cube前需要先创建工程(或者选择已经存在的工程)，加载数据源
+
+#### 登录kylin管理界面
+```html
+地址:http://localhost:7070/kylin (用户名ADMIN/密码KYLIN)
+```
 
 ### 登录后导航页概览
 - Insight 查询交互页面
