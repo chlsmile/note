@@ -60,7 +60,7 @@ Project Description可以为空
 
 
 #### 2.通过Load Hive Table Metadata From Tree方式加载数据源
-![kylin_load _hive_table_metadata_from_tree](https://github.com/chlsmile/note/blob/master/notefile/kylin/datasource/kylin_load _hive_table_metadata_from_tree.png)
+![kylin_load _hive_table_metadata_from_tree](https://github.com/chlsmile/note/blob/master/notefile/kylin/datasource/kylin_load_hive_table_metadata_from_tree.png)
 
 
 #### 3.数据源加载完成后可以查询到已经加载的数据信息
