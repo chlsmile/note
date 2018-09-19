@@ -20,7 +20,7 @@ System   | kylin的系统参数信息,可以查询Kylin系统的参数信息和�
 
 ![kylin_web_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/navigation/kylin_web_navigation.png)
 
-### 创建工程
+#### 创建工程
 
 - 选择创建工程
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
@@ -33,7 +33,7 @@ Project Description可以为空
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
 
 
-### 加载数据数据源
+#### 加载数据数据源
 > 加载数据源有三种方式，Load Hive Table Metadata， Load Hive Table Metadata From Tree， Add Streaming
 ```html
 - Load Hive Table Metadata (通过手动输入database.table的方式加载hive table metadata)
