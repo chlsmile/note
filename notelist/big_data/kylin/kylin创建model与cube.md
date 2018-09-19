@@ -18,30 +18,30 @@ Model    | 主要包含model与cube列表，可以对model与cube进行查看与
 Monitor  | cube构建与慢sql查询监控信息展示页面
 System   | kylin的系统参数信息,可以查询Kylin系统的参数信息和进行修改
 
-
 ![kylin_web_navigation](https://github.com/chlsmile/note/blob/master/notefile/kylin/navigation/kylin_web_navigation.png)
 
 ### 创建工程
-#### 1)选择创建工程
+
+- 选择创建工程
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
 
-#### 2)填写要创建的工程参数信息
-- Project Name 不能为空，只能是数字，字母，下划线
-- Project Description可以为空
+- 填写要创建的工程参数信息
+```html
+Project Name 不能为空，只能是数字，字母，下划线
+Project Description可以为空
+```
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
 
 
 ### 加载数据数据源
 > 加载数据源有三种方式，Load Hive Table Metadata， Load Hive Table Metadata From Tree， Add Streaming
+```html
 - Load Hive Table Metadata (通过手动输入database.table的方式加载hive table metadata)
 - Load Hive Table Metadata From Tree(通过选择database.table树的方式加载hive table metadata)
 - Add Streaming
+```
 
-#### 1
-
-
-
-#### 1)通过Load Hive Table Metadata From Tree方式加载数据源
+- 通过Load Hive Table Metadata From Tree方式加载数据源
 ![kylin_add_project_index](https://github.com/chlsmile/note/blob/master/notefile/kylin/project/kylin_add_project_index.png)
 
 
