@@ -1,6 +1,6 @@
 ## jdk install
 
-```bash
+```
 #! /bin/bash
 
 # 安装目录/usr/local
@@ -11,21 +11,23 @@
 echo "cd /usr/local"
 cd /usr/local
 
-echo "tar -xzvf jdk-8u181-linux-x64.tar.gz"
-tar -xzvf jdk-8u181-linux-x64.tar.gz
 
-echo "mv jdk1.8.0_181 jdk"
-mv jdk1.8.0_181 jdk
+echo "tar -xzf jdk-8u181-linux-x64.tar.gz"
+tar -xzf jdk-8u181-linux-x64.tar.gz
+
+
+echo "mv jdk1.8.0_181 jdk8"
+mv jdk1.8.0_181 jdk8
 
 echo "update /etc/profile"
 
 cat >> /etc/profile  << EOF
 
-#jdk
-JAVA_HOME=/usr/local/jdk
-PATH=$JAVA_HOME/bin:$PATH
-CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-export JAVA_HOME PATH CLASSPATH
+# JAVA
+JAVA_HOME=/usr/local/jdk8
+JRE_HOME=\$JAVA_HOME/jre
+PATH=\$PATH:\$JAVA_HOME/bin:\$JRE_HOME/bin
+CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar:\$JRE_HOME/lib
 
 EOF
 
