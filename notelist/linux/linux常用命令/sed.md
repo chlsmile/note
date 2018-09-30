@@ -47,14 +47,16 @@ $d	         |sed '$d' 1.txt	 |删除1.txt的最后一行行
 
 
 #### s 替换
-命令	完整示例	说明
-s/old/new/	sed 's/old/new/' 1.txt	删除1.txt中每行的第一个old都替换成new
-s/old/new/2	sed 's/old/new/' 1.txt	删除1.txt中每行的第二个old都替换成new
-s/old/new/g	sed 's/old/new/g' 1.txt	删除1.txt中每行的每一个old都替换成new
-s/old//	sed 's/old//' 1.txt	删除1.txt中每行的第一个old都替换成空也就是把old删除
-s/old/&s/	sed 's/old/&s/' 1.txt	删除1.txt中每行的第一个old都替换成olds &代表前面查找的字符串
-4，7s/^/#/	sed '4,7s/^/#/' 1.txt	删除1.txt中4-7行开头加上# 也就是批量添加注释
-4，7s/^#an/an/	sed '4,7s/^#an/an/' 1.txt	删除1.txt中4-7行以#an开头的行去掉#
+
+命令          |	完整示例	                   |说明
+------------  | ----------------------------| ------------ 
+s/old/new/	  |sed 's/old/new/' 1.txt	    |删除1.txt中每行的第一个old都替换成new
+s/old/new/2	  |sed 's/old/new/' 1.txt	    |删除1.txt中每行的第二个old都替换成new
+s/old/new/g	  |sed 's/old/new/g' 1.txt	    |删除1.txt中每行的每一个old都替换成new
+s/old//	      |sed 's/old//' 1.txt	        |删除1.txt中每行的第一个old都替换成空也就是把old删除
+s/old/&s/	  |sed 's/old/&s/' 1.txt	    |删除1.txt中每行的第一个old都替换成olds &代表前面查找的字符串
+4,7s/^/#/	  |sed '4,7s/^/#/' 1.txt	    |删除1.txt中4-7行开头加上# 也就是批量添加注释
+4,7s/^#an/an/ |sed '4,7s/^#an/an/' 1.txt	|删除1.txt中4-7行以#an开头的行去掉#
 
 替换中s///可以用其他三个相同的符号代替如s### s&&& s999 都可以 这样的符号在替换路径的时候经常用到
 
