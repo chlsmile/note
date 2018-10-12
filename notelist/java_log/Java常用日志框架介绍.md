@@ -32,11 +32,11 @@
 * 现今，Java日志领域被划分为两大阵营：Commons Logging阵营和SLF4J阵营。
 Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有证据表明，形式正在发生变化。2013年底有人分析了GitHub上30000个项目，统计出了最流行的100个Libraries，可以看出slf4j的发展趋势更好：
 
-* ![pic1](https://github.com/chlsmile/note/blob/master/notefile/log/java_populor_jar.png)
+    ![pic1](https://github.com/chlsmile/note/blob/master/notefile/log/java_populor_jar.png)
  
 * Apache眼看有被Logback反超的势头，于2012-07重写了log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有logback的所有特性。
 
-##java常用日志框架之间的关系
+## java常用日志框架之间的关系
 * Log4j2与Log4j1发生了很大的变化，log4j2不兼容log4j1。
 
 * Commons Logging和Slf4j是日志门面(门面模式是软件工程中常用的一种软件设计模式，也被称为正面模式、外观模式。它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用)。log4j和Logback则是具体的日志实现方案。可以简单的理解为接口与接口的实现，调用这只需要关注接口而无需关注具体的实现，做到解耦。
@@ -45,7 +45,7 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
 
 * Logback必须配合Slf4j使用。由于Logback和Slf4j是同一个作者，其兼容性不言而喻。
 
-##Commons Logging与Slf4j实现机制对比
+## Commons Logging与Slf4j实现机制对比
 
 ###### Commons logging实现机制  
 Commons logging是通过动态查找机制，在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。详细策略可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件。由于OSGi不同的插件使用独立的ClassLoader，OSGI的这种机制保证了插件互相独立, 其机制限制了commons logging在OSGi中的正常使用。
