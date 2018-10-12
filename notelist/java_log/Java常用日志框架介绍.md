@@ -2,7 +2,7 @@
 ## java日志概述
 > 对于一个应用程序来说日志记录是必不可少的一部分。线上问题追踪，基于日志的业务逻辑统计分析等都离不日志。java领域存在多种日志框架，目前常用的日志框架包括Log4j，Log4j 2，Commons Logging，Slf4j，Logback，Jul。
 
-##java常用日志框架类别介绍
+## java常用日志框架类别介绍
 * **Log4j** Apache Log4j是一个基于Java的日志记录工具。它是由Ceki Gülcü首创的，现在则是Apache软件基金会的一个项目。 Log4j是几种Java日志框架之一。
 
 * **Log4j 2** Apache Log4j 2是apache开发的一款Log4j的升级产品。
