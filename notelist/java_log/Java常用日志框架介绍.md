@@ -47,10 +47,10 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
 
 ## Commons Logging与Slf4j实现机制对比
 
-###### Commons logging实现机制  
+#### Commons logging实现机制  
 Commons logging是通过动态查找机制，在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。详细策略可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件。由于OSGi不同的插件使用独立的ClassLoader，OSGI的这种机制保证了插件互相独立, 其机制限制了commons logging在OSGi中的正常使用。
 
-###### Slf4j实现机制
+#### Slf4j实现机制
 Slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后绑定工作都在这类里面进。
  
 
