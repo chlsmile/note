@@ -32,7 +32,7 @@
 * 现今，Java日志领域被划分为两大阵营：Commons Logging阵营和SLF4J阵营。
 Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有证据表明，形式正在发生变化。2013年底有人分析了GitHub上30000个项目，统计出了最流行的100个Libraries，可以看出slf4j的发展趋势更好：
 
-![pic1](http://7xs54s.com1.z0.glb.clouddn.com/java_populor_jar.png)
+![pic1](https://github.com/chlsmile/note/blob/master/notefile/log/java_populor_jar.png)
  
 * Apache眼看有被Logback反超的势头，于2012-07重写了log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有logback的所有特性。
 
@@ -85,7 +85,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 |**logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)**|slf4j的原生实现，logback直接实现了slf4j的接口，因此使用slf4j与 logback的结合使用也意味更小的内存与计算开销|
 
 具体的接入方式参见下图
- ![pic2](http://7xs54s.com1.z0.glb.clouddn.com/slf4j-concrete-bindings1.png)
+ ![pic2](https://github.com/chlsmile/note/blob/master/notefile/log/slf4j-concrete-bindings1.png)
 
 ####如何桥接遗留的api
 在实际环境中我们经常会遇到不同的组件使用的日志框架不同的情况，例如Spring Framework使用的是日志组件是Commons logging，XSocket依赖的则是Java Util Logging。当我们在同一项目中使用不同的组件时应该如果解决不同组件依赖的日志组件不一致的情况呢？现在我们需要统一日志方案，统一使用SLF4J，把他们的日志输出重定向到SLF4J，然后 SLF4J 又会根据绑定器把日志交给具体的日志实现工具。Slf4j带有几个桥接模块，可以重定向log4j，JCL和java.util.logging中的API到Slf4j。
@@ -99,7 +99,7 @@ jar包名 | 作用|
 **jul-to-slf4j-version.jar** |将Java Util Logging重定向到slf4j|
 
 桥接方式参见下图
- ![pic3](http://7xs54s.com1.z0.glb.clouddn.com/slf4j_brige.png)
+ ![pic3](https://github.com/chlsmile/note/blob/master/notefile/log/slf4j_brige.png)
  
 使用slf4j桥接要注意事项
 
