@@ -32,7 +32,7 @@
 * 现今，Java日志领域被划分为两大阵营：Commons Logging阵营和SLF4J阵营。
 Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有证据表明，形式正在发生变化。2013年底有人分析了GitHub上30000个项目，统计出了最流行的100个Libraries，可以看出slf4j的发展趋势更好：
 
-    ![pic1](http://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_populor_jar.png)
+    ![java_populor_jar](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/java_populor_jar.png)
  
 * Apache眼看有被Logback反超的势头，于2012-07重写了log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有logback的所有特性。
 
@@ -47,21 +47,21 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
 
 ## Commons Logging与Slf4j实现机制对比
 
-#### Commons logging实现机制  
+### Commons logging实现机制  
 Commons logging是通过动态查找机制，在程序运行时，使用自己的ClassLoader寻找和载入本地具体的实现。详细策略可以查看commons-logging-*.jar包中的org.apache.commons.logging.impl.LogFactoryImpl.java文件。由于OSGi不同的插件使用独立的ClassLoader，OSGI的这种机制保证了插件互相独立, 其机制限制了commons logging在OSGi中的正常使用。
 
-#### Slf4j实现机制
+### Slf4j实现机制
 Slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后绑定工作都在这类里面进。
  
 
-## 如果在项目中如果选择日志框架
+## 如何在项目中选择日志框架
 如果是在一个新的项目中建议使用Slf4j与Logback组合，这样有如下的几个优点。
 
 1. Slf4j实现机制决定Slf4j限制较少，使用范围更广。由于Slf4j在编译期间，静态绑定本地的LOG库使得通用性要比Commons logging要好。
 
 2. Logback拥有更好的性能。Logback声称：某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在Logback中需要3纳秒，而在Log4J中则需要30纳秒。LogBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而Log4J需要2234纳秒，时间减少到了1/23。跟JUL相比的性能提高也是显著的。
 
-3. Commons Logging开销更高 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是：
+3. Commons Logging开销更高 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是：。。
 if(log.isDebugEnabled()){
   log.debug("User name： " +
     user.getName() + " buy goods id ：" + good.getId());
@@ -73,7 +73,19 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 4. Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。
 
 ## 如何在项目中使用Slf4j
-#### Slf4j与其他各种日志组件的桥接
+
+### Slf4j与其它日志组件的关系说明
+- Slf4j的设计思想比较简洁，使用了Facade设计模式，Slf4j本身只提供了一个slf4j-api-version.jar包，这个jar中主要是日志的抽象接口，jar中本身并没有对抽象出来的接口做实现。
+- 对于不同的日志实现方案(例如logback，log4j...)，封装出不通的桥接组件(例如logback-classic-version.jar，	
+slf4j-log4j12-version.jar)，这样使用过程中可以灵活的选取自己项目里的日志实现。
+ 
+
+### Slf4j与其它日志组件调用关系图
+ ![slf4j-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-bind.png)
+
+
+### Slf4j与其他各种日志组件的桥接说明
+
 
 | jar包名 | 说明 |
 | :------------ |:------------- |
@@ -85,7 +97,150 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 |**logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)**|slf4j的原生实现，logback直接实现了slf4j的接口，因此使用slf4j与 logback的结合使用也意味更小的内存与计算开销|
 
 具体的接入方式参见下图
- ![pic2](http://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/slf4j-concrete-bindings1.png)
+ ![slf4j-concrete-bindings1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-concrete-bindings1.png)
+ 
+ 
+###  Slf4j源码分析
+#### slf4j-api-version.jar中几个核心类与接口
+| 类与接口 | 用途 |
+| :------------ |:------------- |
+|org.slf4j.LoggerFactory(class) | 给调用方提供的创建Logger的工厂类，在编译时绑定具体的日志实现组件| 
+|org.slf4j.Logger(interface)|对日志组件调用方提供的日志记录抽象方法，例如debug(String msg),info(String msg)等方法 |
+|org.slf4j.ILoggerFactory(interface)|获取的Logger的工厂接口，具体的日志组件实现此接口 |
+|org.slf4j.helpers.NOPLogger(class)| 对org.slf4j.Logger接口的一个没有任何操作的实现|
+|org.slf4j.impl.StaticLoggerBinder(class)| 与具体的日志实现组件直接的桥接类，具体的日志实现组件需要定义org.slf4j.impl包，并在包下提供此类，注意在slf4j-api-version.jar中不存在org.slf4j.impl.StaticLoggerBinder，在源码包slf4j-api-version-source.jar中才存在此类|
+
+
+#### Slf4j调用过程源码分析，只加入slf4j-api-version.jar，不加入任何实现包
+##### [示例代码](https://github.com/chlsmile/slf4j-demo)
+
+##### pom核心配置如下
+
+```java
+  <dependencies>
+    <!--只有slf4j-api依赖-->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.13</version>
+    </dependency>
+  </dependencies>
+```
+
+##### 程序入口类如下
+ ![slf4j-0](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-0.png)
+
+##### 源码追踪分析
+- 1)调用LoggerFactory的getLogger()方法创建Logger
+ ![slf4j-1-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-1-getLogger.png)
+ 
+- 2)调用LoggerFactory的getILoggerFactory方法来创建ILoggerFactory
+![slf4j-2-getILoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-2-getILoggerFactory.png)
+
+- 3)调用LoggerFactory的performInitialization方法来进行初始化
+![slf4j-3-performInitialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-3-performInitialization.png)
+
+- 4)调用LoggerFactory的bind()方法
+![slf4j-4-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-4-bind.png)
+
+- 5)调用LoggerFactory的findPossibleStaticLoggerBinderPathSet()方法获取StaticLoggerBinderPath集合
+![slf4j-5-findPossibleStaticLoggerBinderPathSet](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-5-findPossibleStaticLoggerBinderPathSet.png)
+
+- 6)调用LoggerFactory的reportMultipleBindingAmbiguity()方法，记录绑定的StaticLoggerBinder信息
+![slf4j-6-bind-1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-6-bind-1.png)
+
+- 7)LoggerFactory的reportMultipleBindingAmbiguity()方法
+![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-7-bind-reportMultipleBindingAmbiguity.png)
+
+- 8)LoggerFactory的bind()方法找不StaticLoggerBinder，抛出NoClassDefFoundError异常
+![slf4j-8-bind-NoClassDefFoundError](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-8-bind-NoClassDefFoundError.png)
+
+- 9)LoggerFactory的bind()方法捕获NoClassDefFoundError异常，匹配到StaticLoggerBinder关键词记录信息到控制台
+![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-9-bind-NoClassDefFoundError-report.png)
+
+- 10)LoggerFactory的performInitialization()方法内部调用bind()方法结束
+![slf4j-10-performInitialization-finished](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-10-performInitialization-finished.png)
+
+
+- 11)LoggerFactory的getLogger()方法内部getILoggerFactory()方法调用完成，创建出NOPLoggerFactory，然后由NOPLoggerFactory调用内部的getLogger()方法，创建出NOPLogger
+![slf4j-11-getILoggerFactory-nop_fallback_initialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-11-getILoggerFactory-nop_fallback_initialization.png)
+
+ ![slf4j-12-pre-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-12-pre-getLogger.png)
+
+ ![slf4j-13-NOPLoggerFactory-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-13-NOPLoggerFactory-getLogger.png)
+
+ ![slf4j-14-NOPLogger-new](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-14-NOPLogger-new.png)
+
+- 12)App类内部的logger实际为NOPLogger,调用logger.info()方法实际调用的是NOPLogger的info方法
+ ![slf4j-15-App-logger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-15-App-logger-info.png)
+
+ ![slf4j-16-NOPLogger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-16-NOPLogger-info.png)
+ 
+ 
+ 
+#### Slf4j调用过程源码分析，加入slf4j-api-version.jar，与logbak组件
+##### [示例代码](https://github.com/chlsmile/slf4j-demo)
+
+##### pom核心配置如下
+```java
+<dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.13</version>
+    </dependency>
+    <!--logback-classic依赖logback-core，会自动级联引入-->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+  </dependencies>
+```
+##### 程序入口类同上 
+##### 源码追踪分析
+ - 1)2)3)4)同上
+ - 5)调用LoggerFactory的findPossibleStaticLoggerBinderPathSet()方法获取StaticLoggerBinderPath集合
+  ![slf4j-logabck-001](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-001.png)
+ - 6)调用LoggerFactory的bind()方法的staticLoggerBinderPathSet集合对象赋值
+  ![slf4j-logabck-002-staticLoggerBinderPathSet](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-002-staticLoggerBinderPathSet.png)
+ - 7)在LoggerFactory的bind()方法中调用loback包下的StaticLoggerBinder创建单例对象
+  ![slf4j-logabck-003-StaticLoggerBinder](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-003-StaticLoggerBinder.png)
+ - 8)在LoggerFactory的bind()方法中调用reportActualBinding()记录日志加载信息
+  ![slf4j-logabck-004-pre-reportActualBinding](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-004-pre-reportActualBinding.png)
+  ![slf4j-logabck-005-reportActualBinding-detail](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-005-reportActualBinding-detail.png)
+  
+- 9)LoggerFactory中INITIALIZATION_STATE的值为SUCCESSFUL_INITIALIZATION，调用StaticLoggerBinder的单例对象获取ILoggerFactory
+![slf4j-logabck-006](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-006.png)
+![slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory.png)
+
+- 10)此时LoggerFactory中的getLogger()方法中获取到的ILoggerFactory实际上是logback jar下的LoggerContext
+ ![slf4j-logabck-008](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-008.png)
+ 
+- 11)此时LoggerFactory调用getLogger()方法获取到的Logger实际上是logback jar下的Logger
+![slf4j-logabck-009](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-009.png)
+![slf4j-logabck-010](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-010.png)
+
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
 
 #### 如何桥接遗留的api
 在实际环境中我们经常会遇到不同的组件使用的日志框架不同的情况，例如Spring Framework使用的是日志组件是Commons logging，XSocket依赖的则是Java Util Logging。当我们在同一项目中使用不同的组件时应该如果解决不同组件依赖的日志组件不一致的情况呢？现在我们需要统一日志方案，统一使用SLF4J，把他们的日志输出重定向到SLF4J，然后 SLF4J 又会根据绑定器把日志交给具体的日志实现工具。Slf4j带有几个桥接模块，可以重定向log4j，JCL和java.util.logging中的API到Slf4j。
@@ -99,7 +254,7 @@ jar包名 | 作用|
 **jul-to-slf4j-version.jar** |将Java Util Logging重定向到slf4j|
 
 桥接方式参见下图
- ![pic3](http://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/slf4j_brige.png)
+ ![pic3](http://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j_brige.png)
  
 使用slf4j桥接要注意事项
 
@@ -109,6 +264,9 @@ jar包名 | 作用|
 :-----------|:-----------| 
 **log4j-over-slf4j.jar和slf4j-log4j12.jar同时存在**|由于slf4j-log4j12.jar的存在会将所有日志调用委托给log4j。但由于同时由于log4j-over-slf4j.jar的存在，会将所有对log4j api的调用委托给相应等值的slf4j,所以log4j-over-slf4j.jar和slf4j-log4j12.jar同时存在会形成死循环|
 **jul-to-slf4j.jar和slf4j-jdk14.jar同时存在**|由于slf4j-jdk14.jar的存在会将所有日志调用委托给jdk的log。但由于同时jul-to-slf4j.jar的存在，会将所有对jul api的调用委托给相应等值的slf4j，所以jul-to-slf4j.jar和slf4j-jdk14.jar同时存在会形成死循环|
+
+
+
 
 ## 参考链接
 
