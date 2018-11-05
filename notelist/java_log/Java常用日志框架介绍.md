@@ -178,8 +178,10 @@ slf4j-log4j12-version.jar)，这样使用过程中可以灵活的选取自己项
  
  
  
-#### Slf4j调用过程源码分析，加入slf4j-api-version.jar，与logbak组件
-##### [示例代码](https://github.com/chlsmile/slf4j-demo)
+#### Slf4j调用过程源码分析，加入slf4j-api-version.jar，与logback组件
+> slf4j作为门面采用logback作为实现或者采用其它上面提到过的组件作为实现类似，这里只分析采用logback组件作为实现
+
+##### [示例代码](https://github.com/chlsmile/slf4j-logback-demo)
 
 ##### pom核心配置如下
 ```java
@@ -220,6 +222,10 @@ slf4j-log4j12-version.jar)，这样使用过程中可以灵活的选取自己项
 - 11)此时LoggerFactory调用getLogger()方法获取到的Logger实际上是logback jar下的Logger
 ![slf4j-logabck-009](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-009.png)
 ![slf4j-logabck-010](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-010.png)
+
+
+#### //TODO 如果在项目中采用slf4j作为门面，而同时集成多种日志实现会
+
 
  
  
