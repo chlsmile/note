@@ -73,7 +73,7 @@ if(log.isDebugEnabled()){
 # 在Slf4j阵营，你只需这么做：
 log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 
-也就是说，Slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和Cup的开销，使用占位符号，代码也更为简洁
+# 也就是说，Slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和Cup的开销，使用占位符号，代码也更为简洁
 ```
 
 4. Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。
