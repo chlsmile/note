@@ -173,9 +173,9 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
   ![slf4j-14-NOPLogger-new](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-14-NOPLogger-new.png)
 
 - 12)App类内部的logger实际为NOPLogger,调用logger.info()方法实际调用的是NOPLogger的info方法
- ![slf4j-15-App-logger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-15-App-logger-info.png)
+  ![slf4j-15-App-logger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-15-App-logger-info.png)
 
- ![slf4j-16-NOPLogger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-16-NOPLogger-info.png)
+  ![slf4j-16-NOPLogger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-16-NOPLogger-info.png)
  
  
 ### Slf4j调用过程源码分析，加入slf4j-api-version.jar，与Logback组件
