@@ -136,42 +136,41 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
  ![slf4j-1-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-1-getLogger.png)
  
 - 2)调用LoggerFactory的getILoggerFactory方法来创建ILoggerFactory
-![slf4j-2-getILoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-2-getILoggerFactory.png)
+ ![slf4j-2-getILoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-2-getILoggerFactory.png)
 
 - 3)调用LoggerFactory的performInitialization方法来进行初始化
-![slf4j-3-performInitialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-3-performInitialization.png)
+ ![slf4j-3-performInitialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-3-performInitialization.png)
 
 - 4)调用LoggerFactory的bind()方法
-![slf4j-4-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-4-bind.png)
+ ![slf4j-4-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-4-bind.png)
 
 - 5)调用LoggerFactory的findPossibleStaticLoggerBinderPathSet()方法获取StaticLoggerBinderPath集合
-![slf4j-5-findPossibleStaticLoggerBinderPathSet](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-5-findPossibleStaticLoggerBinderPathSet.png)
+ ![slf4j-5-findPossibleStaticLoggerBinderPathSet](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-5-findPossibleStaticLoggerBinderPathSet.png)
 
 - 6)调用LoggerFactory的reportMultipleBindingAmbiguity()方法，记录绑定的StaticLoggerBinder信息
-![slf4j-6-bind-1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-6-bind-1.png)
+ ![slf4j-6-bind-1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-6-bind-1.png)
 
 - 7)LoggerFactory的reportMultipleBindingAmbiguity()方法
-![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-7-bind-reportMultipleBindingAmbiguity.png)
+ ![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-7-bind-reportMultipleBindingAmbiguity.png)
 
 - 8)LoggerFactory的bind()方法找不StaticLoggerBinder，抛出NoClassDefFoundError异常
-![slf4j-8-bind-NoClassDefFoundError](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-8-bind-NoClassDefFoundError.png)
+ ![slf4j-8-bind-NoClassDefFoundError](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-8-bind-NoClassDefFoundError.png)
 
 - 9)LoggerFactory的bind()方法捕获NoClassDefFoundError异常，匹配到StaticLoggerBinder关键词记录信息到控制台
-![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-9-bind-NoClassDefFoundError-report.png)
+ ![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-9-bind-NoClassDefFoundError-report.png)
 
 - 10)LoggerFactory的performInitialization()方法内部调用bind()方法结束
-![slf4j-10-performInitialization-finished](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-10-performInitialization-finished.png)
+ ![slf4j-10-performInitialization-finished](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-10-performInitialization-finished.png)
 
 
 - 11)LoggerFactory的getLogger()方法内部getILoggerFactory()方法调用完成，创建出NOPLoggerFactory，然后由NOPLoggerFactory调用内部的getLogger()方法，创建出NOPLogger
-
- ![slf4j-11-getILoggerFactory-nop_fallback_initialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-11-getILoggerFactory-nop_fallback_initialization.png)
+  ![slf4j-11-getILoggerFactory-nop_fallback_initialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-11-getILoggerFactory-nop_fallback_initialization.png)
  
- ![slf4j-12-pre-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-12-pre-getLogger.png)
+  ![slf4j-12-pre-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-12-pre-getLogger.png)
  
- ![slf4j-13-NOPLoggerFactory-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-13-NOPLoggerFactory-getLogger.png)
+  ![slf4j-13-NOPLoggerFactory-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-13-NOPLoggerFactory-getLogger.png)
 
- ![slf4j-14-NOPLogger-new](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-14-NOPLogger-new.png)
+  ![slf4j-14-NOPLogger-new](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-14-NOPLogger-new.png)
 
 - 12)App类内部的logger实际为NOPLogger,调用logger.info()方法实际调用的是NOPLogger的info方法
  ![slf4j-15-App-logger-info](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-15-App-logger-info.png)
