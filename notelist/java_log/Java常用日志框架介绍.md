@@ -15,7 +15,7 @@
 
 * **Jul** (Java Util Logging),自Java1.4以来的官方日志实现。
 
-看了上面的介绍是否会觉得比较混乱，这些日志框架之间有什么异同，都是由谁在维护? 下文会逐一介绍。
+> 看了上面的介绍是否会觉得比较混乱，这些日志框架之间有什么异同，都是由谁在维护? 下文会逐一介绍。
 
  
 ## Java常用日志框架历史
@@ -34,7 +34,7 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
 
     ![java_populor_jar](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/java_populor_jar.png)
  
-* Apache眼看有被Logback反超的势头，于2012-07重写了Log4j 1.x，成立了新的项目Log4j 2。Log4j 2具有Logback的所有特性。
+* Apache眼看有被Logback反超的势头，于2012-07重写了Log4j 1.x，成立了新的项目Log4j 2, Log4j 2具有Logback的所有特性。
 
 ## java常用日志框架之间的关系
 * Log4j 2与Log4j 1发生了很大的变化，Log4j 2不兼容Log4j 1。
@@ -61,14 +61,18 @@ Slf4j在编译期间，静态绑定本地的LOG库，因此可以在OSGi中正�
 
 2. Logback拥有更好的性能。Logback声称：某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在Logback中需要3纳秒，而在Log4J中则需要30纳秒。LogBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而Log4J需要2234纳秒，时间减少到了1/23。跟JUL相比的性能提高也是显著的。
 
-3. Commons Logging开销更高 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是：。。
+3. Commons Logging开销更高 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是
+```java
 if(log.isDebugEnabled()){
   log.debug("User name： " +
     user.getName() + " buy goods id ：" + good.getId());
 }
+```
 在Slf4j阵营，你只需这么做：
+```java
 log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
-也就是说，slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和cup的开销，使用占位符号，代码也更为简洁
+```
+也就是说，Slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和Cup的开销，使用占位符号，代码也更为简洁
 
 4. Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。
 
@@ -88,12 +92,12 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 
 | jar包名 | 说明 |
 | :------------ |:------------- |
-|**slf4j-log4j12-1.7.13.jar** | log4j1.2版本的桥接器，你需要将log4j.jar加入classpath。| 
+|**slf4j-log4j12-1.7.13.jar** | Log4j1.2版本的桥接器，你需要将Log4j.jar加入Classpath。| 
 | **slf4j-jdk14-1.7.13.jar** | java.util.logging的桥接器，JDK原生日志框架。|
 | **slf4j-nop-1.7.13.jar** | NOP桥接器，默默丢弃一切日志。|
 | **slf4j-simple-1.7.13.jar** |一个简单实现的桥接器，该实现输出所有事件到System.err. 只有INFO以及高于该级别的消息被打印，在小型应用中它也许是有用的。|
 |**slf4j-jcl-1.7.13.jar**|Jakarta Commons Logging 的桥接器. 这个桥接器将SLF4j所有日志委派给JCL。|
-|**logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)**|slf4j的原生实现，logback直接实现了slf4j的接口，因此使用slf4j与 logback的结合使用也意味更小的内存与计算开销|
+|**logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)**|Slf4j的原生实现，Logback直接实现了Slf4j的接口，因此使用Slf4j与Logback的结合使用也意味更小的内存与计算开销|
 
 具体的接入方式参见下图
  ![slf4j-concrete-bindings1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-concrete-bindings1.png)
