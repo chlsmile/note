@@ -164,10 +164,11 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 
 
 - 11)LoggerFactory的getLogger()方法内部getILoggerFactory()方法调用完成，创建出NOPLoggerFactory，然后由NOPLoggerFactory调用内部的getLogger()方法，创建出NOPLogger
-![slf4j-11-getILoggerFactory-nop_fallback_initialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-11-getILoggerFactory-nop_fallback_initialization.png)
 
+ ![slf4j-11-getILoggerFactory-nop_fallback_initialization](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-11-getILoggerFactory-nop_fallback_initialization.png)
+ 
  ![slf4j-12-pre-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-12-pre-getLogger.png)
-
+ 
  ![slf4j-13-NOPLoggerFactory-getLogger](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-13-NOPLoggerFactory-getLogger.png)
 
  ![slf4j-14-NOPLogger-new](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-14-NOPLogger-new.png)
@@ -213,15 +214,15 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
   ![slf4j-logabck-005-reportActualBinding-detail](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-005-reportActualBinding-detail.png)
   
 - 9)LoggerFactory中INITIALIZATION_STATE的值为SUCCESSFUL_INITIALIZATION，调用StaticLoggerBinder的单例对象获取ILoggerFactory
-![slf4j-logabck-006](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-006.png)
-![slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory.png)
+ ![slf4j-logabck-006](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-006.png)
+ ![slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-007-StaticLoggerBinder-getLoggerFactory.png)
 
 - 10)此时LoggerFactory中的getLogger()方法中获取到的ILoggerFactory实际上是logback jar下的LoggerContext
  ![slf4j-logabck-008](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-008.png)
  
 - 11)此时LoggerFactory调用getLogger()方法获取到的Logger实际上是logback jar下的Logger
-![slf4j-logabck-009](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-009.png)
-![slf4j-logabck-010](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-010.png)
+ ![slf4j-logabck-009](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-009.png)
+ ![slf4j-logabck-010](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-logabck-010.png)
 
 
 ### Slf4j调用过程源码分析，加入slf4j-api-version.jar，同时加入多种日志实现组件
@@ -268,7 +269,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
  ![slf4j-multiple-bindings-1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-multiple-bindings-1.png)
 
 - 2)此时LoggerFactory的bind()方法内部调用reportMultipleBindingAmbiguity()方法，给出警告信息classpath下同时存在多个StaticLoggerBinder,JVM会随机选择一个StaticLoggerBinder
-![slf4j-multiple-bindings-2](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-multiple-bindings-2.png)
+ ![slf4j-multiple-bindings-2](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-multiple-bindings-2.png)
 
 
  
