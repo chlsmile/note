@@ -151,7 +151,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 - 7)LoggerFactory的reportMultipleBindingAmbiguity()方法
  ![slf4j-9-bind-NoClassDefFoundError-report](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-7-bind-reportMultipleBindingAmbiguity.png)
 
-- 8)LoggerFactory的bind()方法找不StaticLoggerBinder，抛出NoClassDefFoundError异常
+- 8)LoggerFactory的bind()方法找不到StaticLoggerBinder，抛出NoClassDefFoundError异常
  ![slf4j-8-bind-NoClassDefFoundError](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-8-bind-NoClassDefFoundError.png)
 
 - 9)LoggerFactory的bind()方法捕获NoClassDefFoundError异常，匹配到StaticLoggerBinder关键词记录信息到控制台
@@ -271,7 +271,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 
  
 ## 如何桥接遗留的api
-> 在实际环境中我们经常会遇到不同的组件使用的日志框架不同的情况，例如Spring Framework使用的是日志组件是Commons Logging，XSocket依赖的则是Java Util Logging。当我们在同一项目中使用不同的组件时应该如果解决不同组件依赖的日志组件不一致的情况呢？现在我们需要统一日志方案，统一使用SLF4J，把他们的日志输出重定向到SLF4J，然后 SLF4J 又会根据绑定器把日志交给具体的日志实现工具。Slf4j带有几个桥接模块，可以重定向Log4j，JCL和java.util.logging中的API到Slf4j。
+> 在实际环境中我们经常会遇到不同的组件使用的日志框架不同的情况，例如Spring Framework使用的是日志组件是Commons Logging，XSocket依赖的则是Java Util Logging。当我们在同一项目中使用不同的组件时应该如果解决不同组件依赖的日志组件不一致的情况呢？现在我们需要统一日志方案，统一使用Slf4j，把他们的日志输出重定向到Slf4j，然后Slf4j又会根据绑定器把日志交给具体的日志实现工具。Slf4j带有几个桥接模块，可以重定向Log4j，JCL和java.util.logging中的Api到Slf4j。
 
 
 ### 遗留的api桥接方案
