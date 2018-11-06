@@ -88,9 +88,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 ### Slf4j与其它日志组件调用关系图
  ![slf4j-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-bind.png)
 
-
 ### Slf4j与其他各种日志组件的桥接说明
-
 
 | jar包名 | 说明 |
 | :------------ |:------------- |
@@ -101,7 +99,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 |**slf4j-jcl-1.7.13.jar**|Jakarta Commons Logging 的桥接器. 这个桥接器将Slf4j所有日志委派给Jcl。|
 |**logback-classic-1.0.13.jar(requires logback-core-1.0.13.jar)**|Slf4j的原生实现，Logback直接实现了Slf4j的接口，因此使用Slf4j与Logback的结合使用也意味更小的内存与计算开销|
 
-具体的接入方式参见下图
+- 具体的接入方式参见下图
  ![slf4j-concrete-bindings1](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-concrete-bindings1.png)
  
  
