@@ -368,15 +368,11 @@ jar包名 | 作用|
 
 ## 参考链接
 
-[Slf4j官网](http://www.slf4j.org)
-
-[Slf4j使用手册1](http://www.slf4j.org/manual.html)
-
-[Slf4j使用手册2](http://www.slf4j.org/legacy.html)
-
-[Logback官网](http://logback.qos.ch)
-
-[Commons Logging官网](https://commons.apache.org/proper/commons-logging)
+- [Slf4j官网](http://www.slf4j.org)
+- [Slf4j使用手册1](http://www.slf4j.org/manual.html)
+- [Slf4j使用手册2](http://www.slf4j.org/legacy.html)
+- [Logback官网](http://logback.qos.ch)
+- [Commons Logging官网](https://commons.apache.org/proper/commons-logging)
 
 
  
