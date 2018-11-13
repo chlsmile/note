@@ -1,8 +1,9 @@
+[TOC]
 # Java常用日志框架介绍
-## java日志概述
+## Java日志概述
 > 对于一个应用程序来说日志记录是必不可少的一部分。线上问题追踪，基于日志的业务逻辑统计分析等都离不日志。java领域存在多种日志框架，目前常用的日志框架包括Log4j 1，Log4j 2，Commons Logging，Slf4j，Logback，Jul。
 
-## java常用日志框架类别介绍
+## Java常用日志框架类别
 * **Log4j** Apache Log4j是一个基于Java的日志记录工具。它是由Ceki Gülcü首创的，现在则是Apache软件基金会的一个项目。 Log4j是几种Java日志框架之一。
 
 * **Log4j 2** Apache Log4j 2是apache开发的一款Log4j的升级产品。
@@ -17,7 +18,6 @@
 
 > 看了上面的介绍是否会觉得比较混乱，这些日志框架之间有什么异同，都是由谁在维护，在项目中应该如何选择日志框架，应该如何使用? 下文会逐一介绍。
 
- 
 ## Java常用日志框架历史
 * 1996年早期，欧洲安全电子市场项目组决定编写它自己的程序跟踪API(Tracing API)。经过不断的完善，这个API终于成为一个十分受欢迎的Java日志软件包，即Log4j。后来Log4j成为Apache基金会项目中的一员。
 
@@ -36,7 +36,7 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
  
 * Apache眼看有被Logback反超的势头，于2012-07重写了Log4j 1.x，成立了新的项目Log4j 2, Log4j 2具有Logback的所有特性。
 
-## java常用日志框架之间的关系
+## java常用日志框架关系
 * Log4j 2与Log4j 1发生了很大的变化，Log4j 2不兼容Log4j 1。
 
 * Commons Logging和Slf4j是日志门面(门面模式是软件工程中常用的一种软件设计模式，也被称为正面模式、外观模式。它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用)。Log4j和Logback则是具体的日志实现方案。可以简单的理解为接口与接口的实现，调用者只需要关注接口而无需关注具体的实现，做到解耦。
@@ -54,14 +54,14 @@ Commons Logging在Apache大树的笼罩下，有很大的用户基数。但有�
 > Slf4j在编译期间，静态绑定本地的Log库，因此可以在Osgi中正常使用。它是通过查找类路径下org.slf4j.impl.StaticLoggerBinder，然后在StaticLoggerBinder中进行绑定。
  
 
-## 如何在项目中选择日志框架
+## 项目中选择日志框架选择
 如果是在一个新的项目中建议使用Slf4j与Logback组合，这样有如下的几个优点。
 
-1. Slf4j实现机制决定Slf4j限制较少，使用范围更广。由于Slf4j在编译期间，静态绑定本地的LOG库使得通用性要比Commons Logging要好。
+- Slf4j实现机制决定Slf4j限制较少，使用范围更广。由于Slf4j在编译期间，静态绑定本地的LOG库使得通用性要比Commons Logging要好。
 
-2. Logback拥有更好的性能。Logback声称：某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在Logback中需要3纳秒，而在Log4J中则需要30纳秒。LogBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而Log4J需要2234纳秒，时间减少到了1/23。跟JUL相比的性能提高也是显著的。
+- Logback拥有更好的性能。Logback声称：某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在Logback中需要3纳秒，而在Log4J中则需要30纳秒。LogBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而Log4J需要2234纳秒，时间减少到了1/23。跟JUL相比的性能提高也是显著的。
 
-3. Commons Logging开销更高 
+- Commons Logging开销更高 
 
 ```java
 # 在使Commons Logging时为了减少构建日志信息的开销，通常的做法是
@@ -76,15 +76,14 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 # 也就是说，Slf4j把构建日志的开销放在了它确认需要显示这条日志之后，减少内存和Cup的开销，使用占位符号，代码也更为简洁
 ```
 
-4. Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。
+- Logback文档免费。Logback的所有文档是全面免费提供的，不象Log4J那样只提供部分免费文档而需要用户去购买付费文档。
 
-## 如何在项目中使用Slf4j
+## Slf4j用法
 
 ### Slf4j与其它日志组件的关系说明
 - Slf4j的设计思想比较简洁，使用了Facade设计模式，Slf4j本身只提供了一个slf4j-api-version.jar包，这个jar中主要是日志的抽象接口，jar中本身并没有对抽象出来的接口做实现。
 - 对于不同的日志实现方案(例如Logback，Log4j...)，封装出不同的桥接组件(例如logback-classic-version.jar，slf4j-log4j12-version.jar)，这样使用过程中可以灵活的选取自己项目里的日志实现。
  
-
 ### Slf4j与其它日志组件调用关系图
  ![slf4j-bind](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-bind.png)
 
@@ -270,7 +269,7 @@ log.debug("User name：{} ,buy goods id ：{}", user.getName(),good.getId());
 
 
  
-## 如何桥接遗留的api
+## 使用Slf4时如何桥接遗留的api
 > 在实际环境中我们经常会遇到不同的组件使用的日志框架不同的情况，例如Spring Framework使用的是日志组件是Commons Logging，XSocket依赖的则是Java Util Logging。当我们在同一项目中使用不同的组件时应该如果解决不同组件依赖的日志组件不一致的情况呢？现在我们需要统一日志方案，统一使用Slf4j，把他们的日志输出重定向到Slf4j，然后Slf4j又会根据绑定器把日志交给具体的日志实现工具。Slf4j带有几个桥接模块，可以重定向Log4j，JCL和java.util.logging中的Api到Slf4j。
 
 
@@ -285,7 +284,7 @@ jar包名 | 作用|
 ### 桥接方式参见下图
  ![pic3](http://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j_brige.png)
  
-### 使用Slf4j桥接要注意事项
+### 使用Slf4j桥接注意事项
 - 在使用Slf4j桥接时要注意避免形成死循环，在项目依赖的jar包中不要存在以下情况。
 
 多个日志jar包形成死循环的条件| 产生原因|
@@ -313,7 +312,7 @@ jar包名 | 作用|
  ![slf4j-Infinite-loop-3](https://cnblogpic.oss-cn-qingdao.aliyuncs.com/blogpic/java_log/slf4j-Infinite-loop-3.png)
  
  
-## 排除掉项目中依赖的第三方包的日志依赖(项目jar包管理采用maven)
+## 排除掉项目中依赖的第三方包的日志依赖
 > 在实际使用过程中，项目会根据需要引入一些第三方组件，例如常用的Spring，而Spring本身的日志实现使用了Commons Logging，我们又想使用Slf4j+Loback组合，这时候需要在项目中将Commons Logging排除掉，通常会用到以下3种方案，3种方案各有利弊，可以根据项目的实际情况选择最适合自己项目的解决方案。
 
 ### 方案一 采用maven的exclusion方案
